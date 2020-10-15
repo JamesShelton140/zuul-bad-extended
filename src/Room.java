@@ -84,7 +84,7 @@ public class Room
      * @ return the item's weight or 0 if none
      */
     public int containsItem(String description) {
-        if (itemDescription.equals(description)) 
+        if (itemDescription != null && itemDescription.equals(description))
             return itemWeight;
         else return 0;
     }
