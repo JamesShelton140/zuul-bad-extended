@@ -257,7 +257,7 @@ public class Game {
             System.out.println("No " + item + " in the room");
             return;
         }
-        if (totalWeight + w <= MAX_WEIGHT) {
+        if (totalWeight + w > MAX_WEIGHT) {
             // The player is carrying too much
             System.out.println(item + " is too heavy");
             return;
