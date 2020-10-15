@@ -8,3 +8,4 @@
 /httpRequests/
 # Compiled class files
 *.class
+/../*.class
