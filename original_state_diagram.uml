@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="303.08333333333337" y="696.0">Game</node>
+    <node x="219.00000000000003" y="0.0">Command</node>
+    <node x="0.0" y="77.0">CommandWords</node>
+    <node x="357.08333333333337" y="1176.0">Main</node>
+    <node x="393.39583333333337" y="304.0">Room</node>
+    <node x="111.33928571428575" y="414.0">Parser</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Game" target="Room">
+      <point x="21.41666666666663" y="-215.0" />
+      <point x="453.0" y="676.0" />
+      <point x="438.06250000000006" y="676.0" />
+      <point x="-89.33333333333333" y="171.0" />
+    </edge>
+    <edge source="Main" target="Game">
+      <point x="0.0" y="-27.0" />
+      <point x="0.0" y="215.0" />
+    </edge>
+    <edge source="Parser" target="CommandWords">
+      <point x="-76.125" y="-61.0" />
+      <point x="136.71428571428575" y="279.0" />
+      <point x="49.75" y="279.0" />
+      <point x="-49.75" y="50.0" />
+    </edge>
+    <edge source="Game" target="Parser">
+      <point x="-107.08333333333337" y="-215.0" />
+      <point x="324.5" y="676.0" />
+      <point x="162.08928571428575" y="676.0" />
+      <point x="-50.75" y="61.0" />
+    </edge>
+    <edge source="Game" target="Command">
+      <point x="-21.416666666666686" y="-215.0" />
+      <point x="410.16666666666674" y="676.0" />
+      <point x="382.89583333333337" y="676.0" />
+      <point x="382.89583333333337" y="279.0" />
+      <point x="404.0" y="279.0" />
+      <point x="74.0" y="127.0" />
+    </edge>
+    <edge source="Parser" target="Command">
+      <point x="25.375" y="-61.0" />
+      <point x="238.21428571428575" y="279.0" />
+      <point x="256.0" y="279.0" />
+      <point x="-74.0" y="127.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="331.0" y="615.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+    <Category>Constructors</Category>
+  </Categories>
+  <SCOPE>Project Files</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
