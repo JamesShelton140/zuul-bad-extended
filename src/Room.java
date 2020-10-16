@@ -153,7 +153,7 @@ public class Room
 
     public Room getExit(String exit) {
         //Check if exit exists
-        if (!this.exits.keySet().contains(exit)) {
+        if (!this.exits.containsKey(exit)) {
             System.out.println("No such exit exists!");
             return null;
         }
