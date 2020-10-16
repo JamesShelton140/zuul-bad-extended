@@ -21,7 +21,7 @@ public class Room
     private Room southExit;
     private Room eastExit;
     private Room westExit;
-    
+
     // An item in the room
     private String itemDescription;
     private int itemWeight;
@@ -77,6 +77,41 @@ public class Room
         itemDescription = description;
         itemWeight = weight;               
     }
+
+    /**
+     * @return The description of the item.
+     */
+    public String getItemDescription() {
+        return itemDescription;
+    }
+
+    /**
+     * Set the description of the item.
+     */
+    public void setItemDescription(String itemDescription) {
+        this.itemDescription = itemDescription;
+    }
+
+    /**
+     * @return The weight of the item.
+     */
+    public int getItemWeight() {
+        return itemWeight;
+    }
+
+    /**
+     * Set the weight of the item.
+     */
+    public void setItemWeight(int itemWeight) {
+        this.itemWeight = itemWeight;
+    }
+
+    /**
+     * @return The character currently in the room.
+     */
+    public String getCharacter() {
+        return character;
+    }
     
     /**
      * Does the room contain an item
@@ -103,5 +138,24 @@ public class Room
             return null;
         }
     }
-    
+
+    /**
+     * Return exits
+     */
+
+    public Room getNorthExit() {
+        return northExit;
+    }
+
+    public Room getSouthExit() {
+        return southExit;
+    }
+
+    public Room getEastExit() {
+        return eastExit;
+    }
+
+    public Room getWestExit() {
+        return westExit;
+    }
 }
