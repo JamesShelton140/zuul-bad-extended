@@ -50,13 +50,13 @@ public class Game {
         lab = new Room("in a computing lab");
         office = new Room("in the computing admin office");
 
-        // initialise room exits
-        outside.setExits(null, theatre, lab, pub);
+        // initialise room exits //Room north, Room east, Room south, Room west)
+        outside.setExits(new String[]{"east", "south", "west"}, new Room[]{theatre, lab, pub});
         outside.addItem("notebook", 2);
-        theatre.setExits(null, null, null, outside);
-        pub.setExits(null, outside, null, null);
-        lab.setExits(outside, office, null, null);
-        office.setExits(null, null, null, lab);
+        theatre.setExits(new String[]{"west"}, new Room[]{outside});
+        pub.setExits(new String[]{"east"}, new Room[]{outside});
+        lab.setExits(new String[]{"north", "east"}, new Room[]{outside, office});
+        office.setExits(new String[]{"west"}, new Room[]{lab});
 
         currentRoom = outside;  // start game outside
     }
@@ -175,18 +175,7 @@ public class Game {
 
         // Try to leave current room.
         Room nextRoom = null;
-        if (direction.equals("north")) {
-            nextRoom = currentRoom.getNorthExit();
-        }
-        if (direction.equals("east")) {
-            nextRoom = currentRoom.getEastExit();
-        }
-        if (direction.equals("south")) {
-            nextRoom = currentRoom.getSouthExit();
-        }
-        if (direction.equals("west")) {
-            nextRoom = currentRoom.getWestExit();
-        }
+        nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null) {
             System.out.println("There is no door!");

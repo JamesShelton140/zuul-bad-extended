@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+
 /**
  * Class Room - a room in an adventure game.
  *
@@ -17,10 +21,7 @@ public class Room
     private String description;
     
     // Exits from the room
-    private Room northExit;
-    private Room southExit;
-    private Room eastExit;
-    private Room westExit;
+    private HashMap<String, Room> exits;
 
     // An item in the room
     private String itemDescription;
@@ -43,21 +44,27 @@ public class Room
     /**
      * Define the exits of this room.  Every direction either leads
      * to another room or is null (no exit there).
-     * @param north The north exit.
-     * @param east The east east.
-     * @param south The south exit.
-     * @param west The west exit.
+     * @param directions The set of exit directions.
+     * @param rooms The set of rooms lead to by the exit directions.
      */
-    public void setExits(Room north, Room east, Room south, Room west) 
-    {
-        if(north != null)
-            northExit = north;
-        if(east != null)
-            eastExit = east;
-        if(south != null)
-            southExit = south;
-        if(west != null)
-            westExit = west;
+    public void setExits(String[] directions, Room[] rooms) {
+        if (directions.length > rooms.length) {
+            //not every exit leads to a room!
+            System.out.println("Every exit must lead to a room!");
+            return;
+        }
+        for(int i = 0; i < directions.length; i++) {
+            addExit(directions[i], rooms[i]);
+        }
+    }
+
+    /**
+     * Add an exit to the room.
+     * @param direction The direction of the exit.
+     * @param room The room the exit leads to.
+     */
+    public void addExit(String direction, Room room) {
+        this.exits.put(direction, room);
     }
 
     /**
@@ -116,7 +123,7 @@ public class Room
     /**
      * Does the room contain an item
      * @param description the item
-     * @ return the item's weight or 0 if none
+     * @return the item's weight or 0 if none
      */
     public int containsItem(String description) {
         if (itemDescription != null && itemDescription.equals(description))
@@ -140,22 +147,21 @@ public class Room
     }
 
     /**
-     * Return exits
+     * @return the room in direction exit or null if it doesn't exist
      */
 
-    public Room getNorthExit() {
-        return northExit;
+    public Room getExit(String exit) {
+        //Check if exit exists
+        if (!this.exits.keySet().contains(exit)) {
+            System.out.println("No such exit exists!");
+            return null;
+        }
+
+        return this.exits.get(exit);
     }
 
-    public Room getSouthExit() {
-        return southExit;
-    }
+    /**
+     * @return all exits for the current room
+     */
 
-    public Room getEastExit() {
-        return eastExit;
-    }
-
-    public Room getWestExit() {
-        return westExit;
-    }
 }
