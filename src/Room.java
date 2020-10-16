@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -36,9 +34,12 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description) 
-    {
+    public Room(String description) {
+        this.exits = new HashMap<String, Room>();
         this.description = description;
+        this.itemDescription = null;
+        this.itemWeight = 0;
+        this.character = null;
     }
 
     /**
@@ -82,7 +83,7 @@ public class Room
      */
     public void addItem(String description, int weight) {
         itemDescription = description;
-        itemWeight = weight;               
+        itemWeight = weight;
     }
 
     /**
@@ -161,7 +162,21 @@ public class Room
     }
 
     /**
-     * @return all exits for the current room
+     * Print the description, exits and items contained within this room.
      */
+    public void printInfo() {
+        System.out.println("You are " + getDescription());
+        System.out.print("Exits: ");
+        for (String exit: exits.keySet()) {
+            System.out.print(exit + " ");
+        }
+        System.out.println();
+        System.out.print("Items: ");
+        if (getItemDescription() != null) {
+            System.out.print(getItemDescription()
+                    + '(' + getItemWeight() + ')');
+        }
+        System.out.println();
+    }
 
 }
