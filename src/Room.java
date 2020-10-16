@@ -14,20 +14,20 @@
  */
 public class Room 
 {
-    public String description;
+    private String description;
     
     // Exits from the room
-    public Room northExit;
-    public Room southExit;
-    public Room eastExit;
-    public Room westExit;
+    private Room northExit;
+    private Room southExit;
+    private Room eastExit;
+    private Room westExit;
     
     // An item in the room
-    public String itemDescription;
-    public int itemWeight;
+    private String itemDescription;
+    private int itemWeight;
     
     // Characters in the room
-    public String character;
+    private String character;
 
     /**
      * Create a room described "description". Initially, it has
