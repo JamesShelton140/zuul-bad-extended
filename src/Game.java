@@ -21,8 +21,8 @@ public class Game {
 
     private Parser parser;
     private Room currentRoom;
-    private ArrayList items;
-    private ArrayList weights;
+    private ArrayList<String> items;
+    private ArrayList<Integer> weights;
     private int totalWeight;
     private final int MAX_WEIGHT = 10;
 
@@ -32,8 +32,8 @@ public class Game {
     public Game() {
         createRooms();
         parser = new Parser();
-        items = new ArrayList();
-        weights = new ArrayList();
+        items = new ArrayList<String>();
+        weights = new ArrayList<Integer>();
         totalWeight = 0;
     }
 
