@@ -19,6 +19,10 @@ import java.util.ArrayList;
  */
 public class Game {
 
+    //Static instance of Game class to ensure a single instance is active. (Singleton pattern)
+    private static Game gameInstance;
+
+    //Game fields
     private Parser parser;
     private Room currentRoom;
     private ArrayList<String> items;
@@ -29,12 +33,25 @@ public class Game {
     /**
      * Create the game and initialise its internal map.
      */
-    public Game() {
+    private Game() {
         createRooms();
         parser = new Parser();
         items = new ArrayList<String>();
         weights = new ArrayList<Integer>();
         totalWeight = 0;
+    }
+
+    /**
+     * Get the static game instance
+     */
+    public static Game getInstance() {
+        //Create new instance of Game if one does not yet exist
+        if (gameInstance == null) {
+            gameInstance = new Game();
+        }
+
+        //Return the static instance of Game
+        return gameInstance;
     }
 
     /**
