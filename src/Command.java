@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * This class is part of the "World of Zuul" application. 
  * "World of Zuul" is a very simple, text based adventure game.  
@@ -17,78 +19,50 @@
  * @version 2006.03.30
  */
 
-public class Command
+public abstract class Command
 {
     private String commandWord;
-    private String secondWord;
-    private String thirdWord;
+    private ArrayList<String> modifiers;
 
     /**
-     * Create a command object. First and second word must be supplied, but
-     * either one (or both) can be null.
-     * @param firstWord The first word of the command. Null if the command
+     * Create a command object. Command word must be supplied but modifiers may be null.
+     * @param commandWord The first word of the command. Null if the command
      *                  was not recognised.
-     * @param secondWord The second word of the command.
-     * @param thirdWord The second word of the command.
+     * @param modifiers The array of modifiers to the command word. Null if no modifiers input.
      */
-    public Command(String firstWord, String secondWord, String thirdWord)
+    public Command(String commandWord, ArrayList<String> modifiers)
     {
-        commandWord = firstWord;
-        this.secondWord = secondWord;
-        this.thirdWord = secondWord;
+        commandWord = commandWord;
+        this.modifiers = modifiers;
 
     }
 
     /**
-     * Return the command word (the first word) of this command. If the
-     * command was not understood, the result is null.
-     * @return The command word.
+     * Create a command object. Command word must be supplied. Sets modifiers == null.
+     * @param commandWord
      */
-    public String getCommandWord()
-    {
-        return commandWord;
+    public Command(String commandWord) {
+        Command(commandWord, null);
     }
 
     /**
-     * @return The second word of this command. Returns null if there was no
-     * second word.
+     * Execute the command.
+     * @return whether the command executed successfully.
      */
-    public String getSecondWord()
-    {
-        return secondWord;
+    public abstract boolean execute();
+
+    /**
+     * @return true if command has at least one modifier word, false otherwise
+     */
+    public boolean hasModifiers() {
+        return (modifiers != null) && (modifiers.size() != 0);
     }
 
     /**
-     * @return The third word of this command. Returns null if there was no
-     * third word.
+     * @return Modifier number i
      */
-    public String getThirdWord()
-    {
-        return secondWord;
-    }
-    
-    /**
-     * @return true if this command was not understood.
-     */
-    public boolean isUnknown()
-    {
-        return (commandWord == null);
-    }
-
-    /**
-     * @return true if the command has a second word.
-     */
-    public boolean hasSecondWord()
-    {
-        return (secondWord != null);
-    }
-    
-    /**
-     * @return true if the command has a third word.
-     */
-    public boolean hasThirdWord()
-    {
-        return (thirdWord != null);
+    public String getModifier(int i) {
+        return modifiers.get(i);
     }
 }
 

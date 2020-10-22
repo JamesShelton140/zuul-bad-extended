@@ -112,10 +112,11 @@ public class Game {
      * Given a command, process (that is: execute) the command.
      *
      * @param command The command to be processed.
-     * @return true If the command ends the game, false otherwise.
+     * @return true If the command executed properly, false otherwise.
      */
     private boolean processCommand(Command command) {
-        boolean wantToQuit = false;
+        return command.execute();
+        /*boolean wantToQuit = false;
 
         if (command.isUnknown()) {
             System.out.println("I don't know what you mean...");
@@ -138,7 +139,7 @@ public class Game {
         } else if (commandWord.equals("give")) {
             give(command);
         }
-        return wantToQuit;
+        return wantToQuit;*/
     }
 
 // implementations of user commands:
@@ -273,10 +274,17 @@ public class Game {
     }
 
     /**
+     * @return The current room.
+     */
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
+
+    /**
      * "Quit" was entered. Check the rest of the command to see whether we
      * really quit the game.
      *
-     * @return true, if this command quits the game, false otherwise.
+     * @return True, if this command quits the game, false otherwise.
      */
     private boolean quit(Command command) {
         if (command.hasSecondWord()) {
@@ -285,5 +293,9 @@ public class Game {
         } else {
             return true;  // signal that we want to quit
         }
+    }
+
+    public void setCurrentRoom(Room nextRoom) {
+        this.currentRoom = nextRoom;
     }
 }
