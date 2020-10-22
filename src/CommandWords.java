@@ -38,4 +38,12 @@ public class CommandWords
         // if we get here, the string was not found in the commands
         return false;
     }
+
+    /**
+     * @return The array of valid commands
+     */
+    public static String[] getValidCommands() {
+        //no need to return clone as validCommands is final
+        return validCommands;
+    }
 }

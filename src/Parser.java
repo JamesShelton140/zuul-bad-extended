@@ -67,4 +67,11 @@ public class Parser
             return new Command(null, word2, word3); 
         }
     }
+
+    /**
+     * @return The CommandsWords object that holds all valid commands for this parser.
+     */
+    public CommandWords getCommandWords() {
+        return commands;
+    }
 }

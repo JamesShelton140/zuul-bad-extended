@@ -162,7 +162,7 @@ public class Room
     }
 
     /**
-     * Print the description, exits and items contained within this room.
+     * Print the description, exits, and items contained within this room.
      */
     public void printInfo() {
         System.out.println("You are " + getDescription());
