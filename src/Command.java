@@ -27,11 +27,10 @@ public abstract class Command
     /**
      * Create a command object. Command word must be supplied but modifiers may be null.
      * @param commandWord The first word of the command. Null if the command
-     *                  was not recognised.
-     * @param modifiers The array of modifiers to the command word. Null if no modifiers input.
+     *                    was not recognised.
+     * @param modifiers The array of modifiers to the command word. Empty if no modifiers input.
      */
-    public Command(String commandWord, ArrayList<String> modifiers)
-    {
+    public Command(String commandWord, ArrayList<String> modifiers) {
         commandWord = commandWord;
         this.modifiers = modifiers;
 
@@ -39,10 +38,11 @@ public abstract class Command
 
     /**
      * Create a command object. Command word must be supplied. Sets modifiers == null.
-     * @param commandWord
+     * @param commandWord  The first word of the command. Null if the command
+     *                     was not recognised.
      */
     public Command(String commandWord) {
-        Command(commandWord, null);
+        this(commandWord, new ArrayList<String>());
     }
 
     /**

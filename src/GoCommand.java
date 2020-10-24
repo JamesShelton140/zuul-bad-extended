@@ -2,11 +2,18 @@ import java.util.ArrayList;
 
 public class GoCommand extends Command {
 
+    /**
+     * Constructor
+     */
     public GoCommand(ArrayList<String> modifiers) {
         super("go", modifiers);
     }
 
-    @Override
+    /**
+     * Execute the command.
+     * @param game The game object to execute the command on.
+     * @return True if command executes successfully, false otherwise.
+     */
     public boolean execute(Game game) {
         if (!hasModifiers()) {
             // if there is no modifier, we don't know where to go...
@@ -28,9 +35,12 @@ public class GoCommand extends Command {
             game.getCurrentRoom().printInfo();
             return true;
         }
-        return false;
     }
 
+    /**
+     * Execute the command.
+     * @return True if command executes successfully, false otherwise.
+     */
     @Override
     public boolean execute() {
         return execute(Game.getInstance());
