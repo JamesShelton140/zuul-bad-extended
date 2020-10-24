@@ -41,6 +41,12 @@ public class CommandFactory {
         }
     }
 
+    /**
+     * Create command from commandWord String by building the class name using reflection.
+     * @param commandWord
+     * @param modifiers
+     * @return
+     */
     public Command getCommandReflexive(String commandWord, ArrayList<String> modifiers) {
         try{
             return (zuul.Command) Class
