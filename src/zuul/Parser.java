@@ -25,12 +25,14 @@ public class Parser
 {
     private CommandWords commands;  // holds all valid command words
     private Scanner reader;         // source of command input
+    CommandFactory commandFactory;  // creates commands from input
 
     /**
      * Create a parser to read from the terminal window.
      */
     public Parser() 
     {
+        commandFactory = new CommandFactory();
         commands = new CommandWords();
         reader = new Scanner(System.in);
     }
@@ -67,25 +69,8 @@ public class Parser
         // Now check whether this word is known. If so, create a command
         // with it. If not, print an error message and try again (call getCommand recursively).
         // "go", "quit", "help", "look", "take", "drop", "give"
-        switch (commandWord) {
-            case "go":
-                return new GoCommand(modifiers);
-            case "quit":
-                return new QuitCommand();
-            case "help":
-                return new HelpCommand();
-            case "look":
-                return new LookCommand();
-            case "take":
-                return new TakeCommand(modifiers);
-            case "drop":
-                return new DropCommand(modifiers);
-            case "give":
-                return new GiveCommand(modifiers);
-            default:
-                System.out.println("I don't know what you mean...");
-                return getCommand();
-        }
+        return commandFactory.getCommand(commandWord, modifiers);
+
     }
 
     /**
