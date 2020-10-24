@@ -1,5 +1,6 @@
 package zuul;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -18,6 +19,7 @@ import java.util.HashMap;
  */
 public class Room 
 {
+    private String name;
     private String description;
     
     // Exits from the room
@@ -28,7 +30,7 @@ public class Room
     private int itemWeight;
     
     // Characters in the room
-    private String character;
+    private ArrayList<Character> characters;
 
     /**
      * Create a room described "description". Initially, it has
@@ -36,12 +38,12 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description) {
+    public Room(String name, String description) {
         this.exits = new HashMap<String, Room>();
         this.description = description;
         this.itemDescription = null;
         this.itemWeight = 0;
-        this.character = null;
+        this.characters = new ArrayList<>();
     }
 
     /**
@@ -119,8 +121,8 @@ public class Room
     /**
      * @return The character currently in the room.
      */
-    public String getCharacter() {
-        return character;
+    public ArrayList<Character> getCharacters() {
+        return (ArrayList<Character>) characters.clone();
     }
     
     /**

@@ -26,11 +26,7 @@ public class Game {
 
     //zuul.Game fields
     private Parser parser;
-    private Room currentRoom;
-    private ArrayList<String> items;
-    private ArrayList<Integer> weights;
-    private int totalWeight;
-    private final int MAX_WEIGHT = 10;
+    private Room startingRoom;
 
     /**
      * Create the game and initialise its internal map.
@@ -38,9 +34,7 @@ public class Game {
     private Game() {
         createRooms();
         parser = new Parser();
-        items = new ArrayList<String>();
-        weights = new ArrayList<Integer>();
-        totalWeight = 0;
+
     }
 
     /**
@@ -63,11 +57,11 @@ public class Game {
         Room outside, theatre, pub, lab, office;
 
         // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theatre = new Room("in a lecture theatre");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
+        outside = new Room("outside", "outside the main entrance of the university");
+        theatre = new Room("theatre", "in a lecture theatre");
+        pub = new Room("pub", "in the campus pub");
+        lab = new Room("lab", "in a computing lab");
+        office = new Room("office", "in the computing admin office");
 
         // initialise room exits //zuul.Room north, zuul.Room east, zuul.Room south, zuul.Room west)
         outside.setExits(new String[]{"east", "south", "west"}, new Room[]{theatre, lab, pub});
@@ -77,7 +71,7 @@ public class Game {
         lab.setExits(new String[]{"north", "east"}, new Room[]{outside, office});
         office.setExits(new String[]{"west"}, new Room[]{lab});
 
-        currentRoom = outside;  // start game outside
+        startingRoom = outside;  // start game outside
     }
 
     /**
@@ -122,81 +116,9 @@ public class Game {
     // Getters and setters for class fields.
 
     /**
-     * @return The current room.
-     */
-    public Room getCurrentRoom() {
-        return currentRoom;
-    }
-
-    /**
-     * Set the current room.
-     * @param nextRoom The room to set as current.
-     */
-    public void setCurrentRoom(Room nextRoom) {
-        this.currentRoom = nextRoom;
-    }
-
-    /**
      * @return The game's parser.
      */
     public Parser getParser(){
         return parser;
-    }
-
-    /**
-     * @return The total weight currently held.
-     */
-    public int getTotalWeight(){
-        return totalWeight;
-    }
-
-    /**
-     * @return The maximum carry weight.
-     */
-    public int getMAX_WEIGHT() {
-        return MAX_WEIGHT;
-    }
-
-    /**
-     * Add an item.
-     */
-    public void addItem(String item) {
-        items.add(item);
-    }
-
-    /**
-     * Add a weight.
-     * @param weight
-     */
-    public void addWeight(int weight) {
-        weights.add(weight);
-        totalWeight += weight;
-    }
-
-    /**
-     * Get the index of an item in the items array.
-     * @param item the item to check for.
-     * @return The index of item parameter if it exists in the array. -1 otherwise.
-     */
-    public int getItemIndex(String item) {
-        return items.indexOf(item);
-    }
-
-    /**
-     * Remove an item from the items array.
-     * @param index Index of item to be removed.
-     */
-    public void removeItem(int index) {
-        items.remove(index);
-    }
-
-    /**
-     * Remove a weight from the weights array.
-     * @param index Index of weight to be removed.
-     * @return The value of the weight that was removed.
-     */
-    public Integer removeWeight(int index) {
-        totalWeight -= weights.get(index);
-        return weights.remove(index);
     }
 }
