@@ -50,6 +50,7 @@ public class TakeCommand extends Command {
         character.getCurrentRoom().removeItem(item);
         character.addItem(item);
         character.addWeight(w);
+        System.out.println("You take the " + item);
 
         return false;
     }
