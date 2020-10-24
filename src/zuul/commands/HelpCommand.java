@@ -2,6 +2,7 @@ package zuul.commands;
 
 import zuul.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class HelpCommand extends Command {
@@ -10,6 +11,13 @@ public class HelpCommand extends Command {
      * Constructor
      */
     public HelpCommand() {
+        super("help");
+    }
+
+    /**
+     * Constructor
+     */
+    public HelpCommand(ArrayList<String> modifiers) {
         super("help");
     }
 

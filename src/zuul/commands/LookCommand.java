@@ -4,13 +4,22 @@ import zuul.Character;
 import zuul.Command;
 import zuul.Game;
 
+import java.util.ArrayList;
+
 public class LookCommand extends Command {
 
     /**
      * Constructor
      */
     public LookCommand() {
-        super("Look");
+        super("look");
+    }
+
+    /**
+     * Constructor
+     */
+    public LookCommand(ArrayList<String> modifiers) {
+        super("look");
     }
 
     /**

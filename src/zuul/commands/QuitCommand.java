@@ -2,12 +2,21 @@ package zuul.commands;
 
 import zuul.Command;
 
+import java.util.ArrayList;
+
 public class QuitCommand extends Command {
 
     /**
      * Constructor
      */
     public QuitCommand() {
+        super("quit");
+    }
+
+    /**
+     * Constructor
+     */
+    public QuitCommand(ArrayList<String> modifiers) {
         super("quit");
     }
 

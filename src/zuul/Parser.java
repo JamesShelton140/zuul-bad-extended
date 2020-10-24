@@ -66,11 +66,9 @@ public class Parser
 
         tokenizer.close();  // Scanner cleanup
 
-        // Now check whether this word is known. If so, create a command
-        // with it. If not, print an error message and try again (call getCommand recursively).
+        // Try to create a command using the command word and modifiers
         // "go", "quit", "help", "look", "take", "drop", "give"
-        return commandFactory.getCommand(commandWord, modifiers);
-
+        return commandFactory.getCommandReflexive(commandWord, modifiers);
     }
 
     /**
