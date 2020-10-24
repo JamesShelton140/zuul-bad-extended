@@ -117,162 +117,9 @@ public class Game {
      */
     private boolean processCommand(Command command) {
         return command.execute();
-        /*boolean wantToQuit = false;
-
-        if (command.isUnknown()) {
-            System.out.println("I don't know what you mean...");
-            return false;
-        }
-
-        String commandWord = command.getCommandWord();
-        if (commandWord.equals("help")) {
-            printHelp();
-        } else if (commandWord.equals("go")) {
-            goRoom(command);
-        } else if (commandWord.equals("quit")) {
-            wantToQuit = quit(command);
-        } else if (commandWord.equals("look")) {
-            look();
-        } else if (commandWord.equals("take")) {
-            take(command);
-        } else if (commandWord.equals("drop")) {
-            drop(command);
-        } else if (commandWord.equals("give")) {
-            give(command);
-        }
-        return wantToQuit;*/
     }
 
-// implementations of user zuul.commands:
-    /**
-     * Print out some help information. Here we print some stupid, cryptic
-     * message and a list of the command words.
-     */
-    private void printHelp() {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
-        System.out.println();
-        System.out.println("Your command words are:");
-//        System.out.println("   go quit help");
-        System.out.println(Arrays.toString(parser.getCommandWords().getValidCommands()));
-    }
-
-    /**
-     * Try to go to one direction. If there is an exit, enter the new room,
-     * otherwise print an error message.
-     */
-    private void goRoom(Command command) {
-        if (!command.hasSecondWord()) {
-            // if there is no second word, we don't know where to go...
-            System.out.println("Go where?");
-            return;
-        }
-
-        String direction = command.getSecondWord();
-
-        // Try to leave current room.
-        Room nextRoom = null;
-        nextRoom = currentRoom.getExit(direction);
-
-        if (nextRoom == null) {
-            System.out.println("There is no door!");
-        } else {
-            currentRoom = nextRoom;
-            currentRoom.printInfo();
-        }
-    }
-
-    /**
-     * "Look" was entered. Report what the player can see in the room
-     */
-    private void look() {
-        currentRoom.printInfo();
-    }
-
-    /**
-     * Try to take an item from the current room, otherwise print an error
-     * message.
-     */
-    private void take(Command command) {
-        if (!command.hasSecondWord()) {
-            // if there is no second word, we don't know what to take...
-            System.out.println("Take what?");
-            return;
-        }
-
-        String item = command.getSecondWord();
-        int w = currentRoom.containsItem(item);
-        if (w == 0) {
-            // The item is not in the room
-            System.out.println("No " + item + " in the room");
-            return;
-        }
-        if (totalWeight + w > MAX_WEIGHT) {
-            // The player is carrying too much
-            System.out.println(item + " is too heavy");
-            return;
-        }
-        // OK we can pick it up
-        currentRoom.removeItem(item);
-        items.add(item);
-        weights.add(w);
-        totalWeight += w;
-    }
-
-    /**
-     * Try to drop an item, otherwise print an error message.
-     */
-    private void drop(Command command) {
-        if (!command.hasSecondWord()) {
-            // if there is no second word, we don't know what to drop...
-            System.out.println("Drop what?");
-            return;
-        }
-
-        String item = command.getSecondWord();
-        int i = items.indexOf(item);
-        if (i == -1) {
-            System.out.println("You don't have the " + item);
-            return;
-        }
-        items.remove(i);
-        int w = (Integer) weights.remove(i);
-        currentRoom.addItem(item, w);
-        totalWeight -= w;
-    }
-
-    /**
-     * Try to drop an item, otherwise print an error message.
-     */
-    private void give(Command command) {
-        if (!command.hasSecondWord()) {
-            // if there is no second word, we don't know what to give...
-            System.out.println("Give what?");
-            return;
-        }
-        if (!command.hasThirdWord()) {
-            // if there is no third word, we don't to whom to give it...
-            System.out.println("Give it to who?");
-            return;
-        }
-
-        String item = command.getSecondWord();
-        String whom = command.getThirdWord();
-
-        if (!currentRoom.getCharacter().equals(whom)) {
-            // cannot give it if the character is not here
-            System.out.println(whom + " is not in the room");
-            return;
-        }
-        int i = items.indexOf(item);
-        if (i == -1) {
-            System.out.println("You don't have the " + item);
-            return;
-        }
-        items.remove(i);
-        int w = (Integer) weights.remove(i);
-        totalWeight -= w;
-    }
+    // Getters and setters for class fields.
 
     /**
      * @return The current room.
@@ -282,21 +129,74 @@ public class Game {
     }
 
     /**
-     * "Quit" was entered. Check the rest of the command to see whether we
-     * really quit the game.
-     *
-     * @return True, if this command quits the game, false otherwise.
+     * Set the current room.
+     * @param nextRoom The room to set as current.
      */
-    private boolean quit(Command command) {
-        if (command.hasSecondWord()) {
-            System.out.println("Quit what?");
-            return false;
-        } else {
-            return true;  // signal that we want to quit
-        }
-    }
-
     public void setCurrentRoom(Room nextRoom) {
         this.currentRoom = nextRoom;
+    }
+
+    /**
+     * @return The game's parser.
+     */
+    public Parser getParser(){
+        return parser;
+    }
+
+    /**
+     * @return The total weight currently held.
+     */
+    public int getTotalWeight(){
+        return totalWeight;
+    }
+
+    /**
+     * @return The maximum carry weight.
+     */
+    public int getMAX_WEIGHT() {
+        return MAX_WEIGHT;
+    }
+
+    /**
+     * Add an item.
+     */
+    public void addItem(String item) {
+        items.add(item);
+    }
+
+    /**
+     * Add a weight.
+     * @param weight
+     */
+    public void addWeight(int weight) {
+        weights.add(weight);
+        totalWeight += weight;
+    }
+
+    /**
+     * Get the index of an item in the items array.
+     * @param item the item to check for.
+     * @return The index of item parameter if it exists in the array. -1 otherwise.
+     */
+    public int getItemIndex(String item) {
+        return items.indexOf(item);
+    }
+
+    /**
+     * Remove an item from the items array.
+     * @param index Index of item to be removed.
+     */
+    public void removeItem(int index) {
+        items.remove(index);
+    }
+
+    /**
+     * Remove a weight from the weights array.
+     * @param index Index of weight to be removed.
+     * @return The value of the weight that was removed.
+     */
+    public Integer removeWeight(int index) {
+        totalWeight -= weights.get(index);
+        return weights.remove(index);
     }
 }

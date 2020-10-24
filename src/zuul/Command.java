@@ -66,5 +66,14 @@ public abstract class Command
     public String getModifier(int i) {
         return modifiers.get(i);
     }
+
+    /**
+     * Check if a non-null modifier exists in index i.
+     * @param i The index to check.
+     * @return True if modifiers has an index i and a non-null modifier exists in that index, false otherwise.
+     */
+    public boolean hasModifier(int i) {
+        return (modifiers.size() > i) && (modifiers.get(i) != null);
+    }
 }
 

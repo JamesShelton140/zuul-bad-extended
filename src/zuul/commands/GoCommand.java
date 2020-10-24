@@ -14,7 +14,8 @@ public class GoCommand extends Command {
     }
 
     /**
-     * Execute the command.
+     * Execute the command. Try to go to one direction. If there is an exit, enter the new room,
+     * otherwise print an error message.
      * @param game The game object to execute the command on.
      * @return True if command executes successfully, false otherwise.
      */
@@ -37,7 +38,7 @@ public class GoCommand extends Command {
         } else {
             game.setCurrentRoom(nextRoom);
             game.getCurrentRoom().printInfo();
-            return true;
+            return false;
         }
     }
 

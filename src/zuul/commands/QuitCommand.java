@@ -12,11 +12,18 @@ public class QuitCommand extends Command {
     }
 
     /**
-     * Execute the command.
-     * @return True if command executes successfully, false otherwise.
+     * "Quit" was entered. Check the rest of the command to see whether we
+     * really quit the game.
+     *
+     * @return True, if this command quits the game, false otherwise.
      */
     @Override
     public boolean execute() {
-        return false;
+        if (hasModifiers()) {
+            System.out.println("Quit what?");
+            return false;
+        } else {
+            return true;  // signal that we want to quit
+        }
     }
 }
