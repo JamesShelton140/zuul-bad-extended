@@ -20,6 +20,7 @@ public abstract class Character {
     public Character(String name, Room startingRoom) {
         this.name = name;
         this.currentRoom = startingRoom;
+        startingRoom.addCharacter(this);
         this.items = new ArrayList<String>();
         this.weights = new ArrayList<Integer>();
         this.totalWeight = 0;
@@ -51,8 +52,8 @@ public abstract class Character {
      * Remove an item from the items array.
      * @param index Index of item to be removed.
      */
-    public void removeItem(int index) {
-        items.remove(index);
+    public String removeItem(int index) {
+        return items.remove(index);
     }
 
     /**
@@ -97,6 +98,11 @@ public abstract class Character {
         return MAX_WEIGHT;
     }
 
+    /**
+     * Check if this character is equal to the given object.
+     * @param o The object to compare to this.
+     * @return True if o is a Character and o.name == this.name.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -108,5 +114,20 @@ public abstract class Character {
     @Override
     public int hashCode() {
         return Objects.hash(name);
+    }
+
+    /**
+     * @return The name of the character.
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Create string from the character
+     * @return The character's name.
+     */
+    public String toString() {
+        return this.name;
     }
 }

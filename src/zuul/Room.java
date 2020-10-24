@@ -124,7 +124,13 @@ public class Room
     public ArrayList<Character> getCharacters() {
         return (ArrayList<Character>) characters.clone();
     }
-    
+
+    public zuul.Character getCharacter(String name){
+        return characters.stream()
+                .filter(character -> character.getName().equals(name))
+                .findAny().get();
+    }
+
     /**
      * Does the room contain an item
      * @param description the item
@@ -181,6 +187,18 @@ public class Room
                     + '(' + getItemWeight() + ')');
         }
         System.out.println();
+        System.out.print("Characters: ");
+        if (characters != null && characters.size() != 0) {
+            characters.stream().forEach(character -> System.out.println(character.getName()));
+        }
+        System.out.println();
     }
 
+    /**
+     * Add a character to the room.
+     * @param character The character to add.
+     */
+    public void addCharacter(Character character) {
+        this.characters.add(character);
+    }
 }

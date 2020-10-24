@@ -43,7 +43,7 @@ public class GiveCommand extends Command {
         String item = getModifier(0);
         String whom = getModifier(1);
 
-        if (!character.getCurrentRoom().getCharacters().contains(new Player(whom))) {
+        if (character.getCurrentRoom().getCharacters().stream().noneMatch(character1 -> character1.getName().equals(whom))) {
             // cannot give it if the character is not here
             System.out.println(whom + " is not in the room");
             return false;
@@ -54,8 +54,13 @@ public class GiveCommand extends Command {
             System.out.println("You don't have the " + item);
             return false;
         }
-        character.removeItem(i);
-        character.removeWeight(i);
+
+        //get the new character by name
+        Character recipient = character.getCurrentRoom().getCharacter(whom);
+
+        //remove the item from the current character and give it to the new one
+        recipient.addItem(character.removeItem(i));
+        recipient.addWeight(character.removeWeight(i));
         return false;
     }
 
