@@ -40,7 +40,7 @@ public class Parser
      * Only returns if a valid zuul.commands is parsed. Else an error message is printed and getCommand() is called recursively.
      * @return The next valid command from the user.
      */
-    public GoCommand getCommand()
+    public Command getCommand()
     {
         String inputLine;   // will hold the full input line
         String commandWord = null; //Initialise command word to null so "no input" will result in a null command.
@@ -66,12 +66,25 @@ public class Parser
 
         // Now check whether this word is known. If so, create a command
         // with it. If not, print an error message and try again (call getCommand recursively).
-        if(commands.isCommand(commandWord)) {
-            return new GoCommand(modifiers);
-        }
-        else {
-            System.out.println("I don't know what you mean...");
-            return getCommand();
+        // "go", "quit", "help", "look", "take", "drop", "give"
+        switch (commandWord) {
+            case "go":
+                return new GoCommand(modifiers);
+            case "quit":
+                return new QuitCommand();
+            case "help":
+                return new HelpCommand();
+            case "look":
+                return new LookCommand();
+            case "take":
+                return new TakeCommand(modifiers);
+            case "drop":
+                return new DropCommand(modifiers);
+            case "give":
+                return new GiveCommand(modifiers);
+            default:
+                System.out.println("I don't know what you mean...");
+                return getCommand();
         }
     }
 
