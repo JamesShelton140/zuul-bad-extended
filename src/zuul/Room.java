@@ -1,12 +1,15 @@
+package zuul;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Class Room - a room in an adventure game.
+ * Class zuul.Room - a room in an adventure game.
  *
  * This class is part of the "World of Zuul" application. 
  * "World of Zuul" is a very simple, text based adventure game.  
  *
- * A "Room" represents one location in the scenery of the game.  It is 
+ * A "zuul.Room" represents one location in the scenery of the game.  It is
  * connected to other rooms via exits.  The exits are labelled north, 
  * east, south, west.  For each direction, the room stores a reference
  * to the neighboring room, or null if there is no exit in that direction.
@@ -16,6 +19,7 @@ import java.util.HashMap;
  */
 public class Room 
 {
+    private String name;
     private String description;
     
     // Exits from the room
@@ -26,7 +30,7 @@ public class Room
     private int itemWeight;
     
     // Characters in the room
-    private String character;
+    private ArrayList<Character> characters;
 
     /**
      * Create a room described "description". Initially, it has
@@ -34,12 +38,12 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description) {
+    public Room(String name, String description) {
         this.exits = new HashMap<String, Room>();
         this.description = description;
         this.itemDescription = null;
         this.itemWeight = 0;
-        this.character = null;
+        this.characters = new ArrayList<>();
     }
 
     /**
@@ -77,7 +81,7 @@ public class Room
     }
     
     /**
-     * Add an item to the Room
+     * Add an item to the zuul.Room
      * @param description The description of the item
      * @param weight The item's weight
      */
@@ -115,12 +119,18 @@ public class Room
     }
 
     /**
-     * @return The character currently in the room.
+     * @return The characters currently in the room.
      */
-    public String getCharacter() {
-        return character;
+    public ArrayList<Character> getCharacters() {
+        return (ArrayList<Character>) characters.clone();
     }
-    
+
+    public zuul.Character getCharacter(String name){
+        return characters.stream()
+                .filter(character -> character.getName().equals(name))
+                .findAny().get();
+    }
+
     /**
      * Does the room contain an item
      * @param description the item
@@ -133,7 +143,7 @@ public class Room
     }
     
     /**
-     * Remove an item from the Room
+     * Remove an item from the zuul.Room
      */
     public String removeItem(String description) {
         if (itemDescription.equals(description)) {
@@ -177,6 +187,18 @@ public class Room
                     + '(' + getItemWeight() + ')');
         }
         System.out.println();
+        System.out.print("Characters: ");
+        if (characters != null && characters.size() != 0) {
+            characters.stream().forEach(character -> System.out.println(character.getName()));
+        }
+        System.out.println();
     }
 
+    /**
+     * Add a character to the room.
+     * @param character The character to add.
+     */
+    public void addCharacter(Character character) {
+        this.characters.add(character);
+    }
 }
