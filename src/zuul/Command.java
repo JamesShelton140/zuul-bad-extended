@@ -1,3 +1,5 @@
+package zuul;
+
 import java.util.ArrayList;
 
 /**
@@ -25,7 +27,7 @@ public abstract class Command
     private ArrayList<String> modifiers;
 
     /**
-     * Create a command object. Command word must be supplied but modifiers may be null.
+     * Create a command object. zuul.Command word must be supplied but modifiers may be null.
      * @param commandWord The first word of the command. Null if the command
      *                    was not recognised.
      * @param modifiers The array of modifiers to the command word. Empty if no modifiers input.
@@ -37,7 +39,7 @@ public abstract class Command
     }
 
     /**
-     * Create a command object. Command word must be supplied. Sets modifiers == null.
+     * Create a command object. zuul.Command word must be supplied. Sets modifiers == null.
      * @param commandWord  The first word of the command. Null if the command
      *                     was not recognised.
      */

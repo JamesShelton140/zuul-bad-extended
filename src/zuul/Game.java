@@ -1,3 +1,4 @@
+package zuul;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,17 +14,17 @@ import java.util.Arrays;
  *
  * This main class creates and initialises all the others: it creates all rooms,
  * creates the parser and starts the game. It also evaluates and executes the
- * commands that the parser returns.
+ * zuul.commands that the parser returns.
  *
  * @author Michael Kolling and David J. Barnes
  * @version 2006.03.30
  */
 public class Game {
 
-    //Static instance of Game class to ensure a single instance is active. (Singleton pattern)
+    //Static instance of zuul.Game class to ensure a single instance is active. (Singleton pattern)
     private static Game gameInstance;
 
-    //Game fields
+    //zuul.Game fields
     private Parser parser;
     private Room currentRoom;
     private ArrayList<String> items;
@@ -46,12 +47,12 @@ public class Game {
      * Get the static game instance
      */
     public static Game getInstance() {
-        //Create new instance of Game if one does not yet exist
+        //Create new instance of zuul.Game if one does not yet exist
         if (gameInstance == null) {
             gameInstance = new Game();
         }
 
-        //Return the static instance of Game
+        //Return the static instance of zuul.Game
         return gameInstance;
     }
 
@@ -68,7 +69,7 @@ public class Game {
         lab = new Room("in a computing lab");
         office = new Room("in the computing admin office");
 
-        // initialise room exits //Room north, Room east, Room south, Room west)
+        // initialise room exits //zuul.Room north, zuul.Room east, zuul.Room south, zuul.Room west)
         outside.setExits(new String[]{"east", "south", "west"}, new Room[]{theatre, lab, pub});
         outside.addItem("notebook", 2);
         theatre.setExits(new String[]{"west"}, new Room[]{outside});
@@ -80,12 +81,12 @@ public class Game {
     }
 
     /**
-     * Main play routine. Loops until end of play.
+     * zuul.Main play routine. Loops until end of play.
      */
     public void play() {
         printWelcome();
 
-        // Enter the main command loop.  Here we repeatedly read commands and
+        // Enter the main command loop.  Here we repeatedly read zuul.commands and
         // execute them until the game is over.
 
         boolean finished = false;
@@ -142,7 +143,7 @@ public class Game {
         return wantToQuit;*/
     }
 
-// implementations of user commands:
+// implementations of user zuul.commands:
     /**
      * Print out some help information. Here we print some stupid, cryptic
      * message and a list of the command words.

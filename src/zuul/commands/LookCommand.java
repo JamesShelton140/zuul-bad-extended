@@ -1,12 +1,14 @@
-import java.util.ArrayList;
+package zuul.commands;
 
-public class DropCommand extends Command{
+import zuul.Command;
+
+public class LookCommand extends Command {
 
     /**
      * Constructor
      */
-    public DropCommand(ArrayList<String> modifiers) {
-        super("drop", modifiers);
+    public LookCommand() {
+        super("Look");
     }
 
     /**

@@ -1,4 +1,8 @@
-public class HelpCommand extends Command{
+package zuul.commands;
+
+import zuul.*;
+
+public class HelpCommand extends Command {
 
     /**
      * Constructor

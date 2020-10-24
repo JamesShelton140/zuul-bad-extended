@@ -1,12 +1,16 @@
+package zuul.commands;
+
+import zuul.Command;
+
 import java.util.ArrayList;
 
-public class GiveCommand extends Command{
+public class DropCommand extends Command {
 
     /**
      * Constructor
      */
-    public GiveCommand(ArrayList<String> modifiers) {
-        super("give", modifiers);
+    public DropCommand(ArrayList<String> modifiers) {
+        super("drop", modifiers);
     }
 
     /**

@@ -1,3 +1,7 @@
+package zuul.commands;
+
+import zuul.*;
+
 import java.util.ArrayList;
 
 public class GoCommand extends Command {

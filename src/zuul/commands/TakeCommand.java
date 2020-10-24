@@ -1,10 +1,15 @@
-public class LookCommand extends Command{
+package zuul.commands;
+
+import java.util.ArrayList;
+import zuul.Command;
+
+public class TakeCommand extends Command {
 
     /**
      * Constructor
      */
-    public LookCommand() {
-        super("Look");
+    public TakeCommand(ArrayList<String> modifiers) {
+        super("take", modifiers);
     }
 
     /**

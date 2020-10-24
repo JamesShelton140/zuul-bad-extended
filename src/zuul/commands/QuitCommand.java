@@ -1,4 +1,6 @@
-import java.util.ArrayList;
+package zuul.commands;
+
+import zuul.Command;
 
 public class QuitCommand extends Command {
 
