@@ -27,6 +27,7 @@ public class Game {
     //zuul.Game fields
     private Parser parser;
     private Room startingRoom;
+    private ArrayList<Character> characters = new ArrayList<>();
 
     /**
      * Create the game and initialise its internal map.
@@ -34,11 +35,12 @@ public class Game {
     private Game() {
         createRooms();
         parser = new Parser();
-
+        this.characters.add(new Player("Player_1", startingRoom));
     }
 
     /**
      * Get the static game instance
+     * @return The static instance of Game.
      */
     public static Game getInstance() {
         //Create new instance of zuul.Game if one does not yet exist
@@ -100,7 +102,7 @@ public class Game {
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
-        currentRoom.printInfo();
+        characters.get(0).getCurrentRoom().printInfo(); //Print info for starting room of player 1
     }
 
     /**
@@ -120,5 +122,14 @@ public class Game {
      */
     public Parser getParser(){
         return parser;
+    }
+
+    /**
+     * Return the character at index, 'index'.
+     * @param index The index of characters to retrieve.
+     * @return Character in position 'index'.
+     */
+    public zuul.Character getCharacter(int index) {
+        return characters.get(index);
     }
 }

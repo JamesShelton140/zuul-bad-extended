@@ -18,16 +18,16 @@ public class TakeCommand extends Command {
      */
     @Override
     public boolean execute() {
-        return execute(Game.getInstance());
+        return execute(Game.getInstance().getCharacter(0));
     }
 
     /**
      * Execute the command. Try to take an item from the current room, otherwise print an error
      * message.
-     * @param game The running game.
+     * @param character The character that is executing the command.
      * @return false, do not quit;
      */
-    public boolean execute(Game game) {
+    public boolean execute(zuul.Character character) {
         if (!hasModifiers()) {
             // if there is no second word, we don't know what to take...
             System.out.println("Take what?");
@@ -35,21 +35,21 @@ public class TakeCommand extends Command {
         }
 
         String item = getModifier(0);
-        int w = game.getCurrentRoom().containsItem(item);
+        int w = character.getCurrentRoom().containsItem(item);
         if (w == 0) {
             // The item is not in the room
             System.out.println("No " + item + " in the room");
             return false;
         }
-        if (game.getTotalWeight() + w > game.getMAX_WEIGHT()) {
+        if (character.getTotalWeight() + w > character.getMAX_WEIGHT()) {
             // The player is carrying too much
             System.out.println(item + " is too heavy");
             return false;
         }
         // OK we can pick it up
-        game.getCurrentRoom().removeItem(item);
-        game.addItem(item);
-        game.addWeight(w);
+        character.getCurrentRoom().removeItem(item);
+        character.addItem(item);
+        character.addWeight(w);
 
         return false;
     }

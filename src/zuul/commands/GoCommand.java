@@ -1,6 +1,7 @@
 package zuul.commands;
 
 import zuul.*;
+import zuul.Character;
 
 import java.util.ArrayList;
 
@@ -16,10 +17,10 @@ public class GoCommand extends Command {
     /**
      * Execute the command. Try to go to one direction. If there is an exit, enter the new room,
      * otherwise print an error message.
-     * @param game The game object to execute the command on.
+     * @param character The character object to execute the command on.
      * @return True if command executes successfully, false otherwise.
      */
-    public boolean execute(Game game) {
+    public boolean execute(Character character) {
         if (!hasModifiers()) {
             // if there is no modifier, we don't know where to go...
             System.out.println("Go where?");
@@ -30,14 +31,14 @@ public class GoCommand extends Command {
 
         // Try to leave current room.
         Room nextRoom = null;
-        nextRoom = game.getCurrentRoom().getExit(direction);
+        nextRoom = character.getCurrentRoom().getExit(direction);
 
         if (nextRoom == null) {
             System.out.println("There is no door!");
             return false;
         } else {
-            game.setCurrentRoom(nextRoom);
-            game.getCurrentRoom().printInfo();
+            character.setCurrentRoom(nextRoom);
+            character.getCurrentRoom().printInfo();
             return false;
         }
     }
@@ -48,6 +49,6 @@ public class GoCommand extends Command {
      */
     @Override
     public boolean execute() {
-        return execute(Game.getInstance());
+        return execute(Game.getInstance().getCharacter(0));
     }
 }

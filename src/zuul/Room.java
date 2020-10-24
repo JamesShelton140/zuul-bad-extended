@@ -119,7 +119,7 @@ public class Room
     }
 
     /**
-     * @return The character currently in the room.
+     * @return The characters currently in the room.
      */
     public ArrayList<Character> getCharacters() {
         return (ArrayList<Character>) characters.clone();

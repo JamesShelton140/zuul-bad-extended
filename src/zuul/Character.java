@@ -1,6 +1,7 @@
 package zuul;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public abstract class Character {
 
@@ -94,5 +95,18 @@ public abstract class Character {
      */
     public int getMAX_WEIGHT() {
         return MAX_WEIGHT;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Character)) return false;
+        Character character = (Character) o;
+        return name.equals(character.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

@@ -1,5 +1,6 @@
 package zuul.commands;
 
+import zuul.Character;
 import zuul.Command;
 import zuul.Game;
 
@@ -18,15 +19,16 @@ public class LookCommand extends Command {
      */
     @Override
     public boolean execute() {
-        return execute(Game.getInstance());
+        return execute(Game.getInstance().getCharacter(0));
     }
 
     /**
      * Execute the command
      * @return false, we do not want to quit.
+     * @param character
      */
-    public boolean execute(Game game) {
-        game.getCurrentRoom().printInfo();
+    public boolean execute(zuul.Character character) {
+        character.getCurrentRoom().printInfo();
         return false;
     }
 }

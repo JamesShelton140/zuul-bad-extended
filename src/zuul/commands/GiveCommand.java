@@ -1,7 +1,7 @@
 package zuul.commands;
 
-import zuul.Command;
-import zuul.Game;
+import zuul.*;
+import zuul.Character;
 
 import java.util.ArrayList;
 
@@ -20,15 +20,15 @@ public class GiveCommand extends Command {
      */
     @Override
     public boolean execute() {
-        return execute(Game.getInstance());
+        return execute(Game.getInstance().getCharacter(0));
     }
 
     /**
      * Execute the command. Try to give an item, otherwise print an error message.
-     * @param game The game object to modify.
+     * @param character The game object to modify.
      * @return False, we do not want to quit the game.
      */
-    public boolean execute(Game game) {
+    public boolean execute(zuul.Character character) {
         if (!hasModifier(0)) {
             // if there is no second word, we don't know what to give...
             System.out.println("Give what?");
@@ -43,19 +43,19 @@ public class GiveCommand extends Command {
         String item = getModifier(0);
         String whom = getModifier(1);
 
-        if (!game.getCurrentRoom().getCharacter().equals(whom)) {
+        if (!character.getCurrentRoom().getCharacters().contains(new Player(whom))) {
             // cannot give it if the character is not here
             System.out.println(whom + " is not in the room");
             return false;
         }
         //Check if the item is currently held
-        int i = game.getItemIndex(item);
+        int i = character.getItemIndex(item);
         if (i == -1) {
             System.out.println("You don't have the " + item);
             return false;
         }
-        game.removeItem(i);
-        game.removeWeight(i);
+        character.removeItem(i);
+        character.removeWeight(i);
         return false;
     }
 
