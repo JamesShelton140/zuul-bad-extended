@@ -39,8 +39,8 @@ public class GoCommand extends Command {
         } else {
             character.getCurrentRoom().removeCharacter(character);  //leave current room
             character.setCurrentRoom(nextRoom); //enter next room
-            character.getCurrentRoom().addCharacter(character); //enter next room
-            character.getCurrentRoom().printInfo(); //look around next room
+            nextRoom.addCharacter(character); //enter next room
+            nextRoom.printInfo(); //look around next room
             return true;
         }
     }

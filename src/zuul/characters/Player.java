@@ -1,6 +1,7 @@
-package zuul;
+package zuul.characters;
 
 import zuul.Character;
+import zuul.Room;
 
 public class Player extends Character {
     /**
