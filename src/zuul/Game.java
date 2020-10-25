@@ -28,6 +28,7 @@ public class Game {
     private Parser parser;
     private Room startingRoom;
     private ArrayList<Character> characters = new ArrayList<>();
+    private Boolean finished = false;
 
     /**
      * Create the game and initialise its internal map.
@@ -85,12 +86,14 @@ public class Game {
         // Enter the main command loop.  Here we repeatedly read zuul.commands and
         // execute them until the game is over.
 
-        boolean finished = false;
         while (!finished) {
-            Command command = parser.getCommand();
-            if(command != null) {
-                finished = processCommand(command);
-            }
+            boolean commandSuccessful = false;
+            do {
+                Command command = parser.getCommand();
+                if (command != null) {
+                    commandSuccessful = processCommand(command);
+                }
+            } while (!commandSuccessful);
         }
         System.out.println("Thank you for playing.  Good bye.");
     }
@@ -133,5 +136,9 @@ public class Game {
      */
     public zuul.Character getCharacter(int index) {
         return characters.get(index);
+    }
+
+    public void finish() {
+        this.finished = true;
     }
 }

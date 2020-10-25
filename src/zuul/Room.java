@@ -75,8 +75,7 @@ public class Room
     /**
      * @return The description of the room.
      */
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
     
@@ -200,5 +199,13 @@ public class Room
      */
     public void addCharacter(Character character) {
         this.characters.add(character);
+    }
+
+    /**
+     * Remove a character from the room.
+     * @param character The character to remove.
+     */
+    public void removeCharacter(Character character) {
+        this.characters.remove(character);
     }
 }

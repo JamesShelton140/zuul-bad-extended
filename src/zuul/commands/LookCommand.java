@@ -33,11 +33,11 @@ public class LookCommand extends Command {
 
     /**
      * Execute the command
-     * @return false, we do not want to quit.
+     * @return True if command executes successfully, false otherwise.
      * @param character
      */
     public boolean execute(zuul.Character character) {
         character.getCurrentRoom().printInfo();
-        return false;
+        return true;
     }
 }

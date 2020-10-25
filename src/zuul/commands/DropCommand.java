@@ -26,7 +26,7 @@ public class DropCommand extends Command {
     /**
      * Execute the command. Try to drop an item, otherwise print an error message.
      * @param character The character object to modify.
-     * @return False, we do not want to quit the game.
+     * @return True if command executes successfully, false otherwise.
      */
     public boolean execute(zuul.Character character){
         if (!hasModifiers()) {
@@ -44,6 +44,7 @@ public class DropCommand extends Command {
         character.removeItem(i);
         int w = (Integer) character.removeWeight(i);
         character.getCurrentRoom().addItem(item, w);
-        return false;
+        System.out.println("You drop the " + item);
+        return true;
     }
 }

@@ -14,43 +14,15 @@ public class CommandFactory {
     }
 
     /**
-     * Create Command from commandWord String.
-     * @param commandWord The name of the command to create.
-     * @param modifiers The command modifiers.
-     * @return The created command.
-     */
-    public Command getCommand(String commandWord, ArrayList<String> modifiers) {
-        switch (commandWord) {
-            case "go":
-                return new GoCommand(modifiers);
-            case "quit":
-                return new QuitCommand();
-            case "help":
-                return new HelpCommand();
-            case "look":
-                return new LookCommand();
-            case "take":
-                return new TakeCommand(modifiers);
-            case "drop":
-                return new DropCommand(modifiers);
-            case "give":
-                return new GiveCommand(modifiers);
-            default:
-                System.out.println("I don't know what you mean...");
-                return null;
-        }
-    }
-
-    /**
      * Create command from commandWord String by building the class name using reflection.
      * @param commandWord
      * @param modifiers
      * @return
      */
-    public Command getCommandReflexive(String commandWord, ArrayList<String> modifiers) {
+    public Command getCommand(String commandWord, ArrayList<String> modifiers) {
         try{
             return (zuul.Command) Class
-                    .forName("zuul.commands." + commandWord.substring(0, 1).toUpperCase() + commandWord.substring(1) + "Command")
+                    .forName("zuul.commands." + commandWord.substring(0, 1).toUpperCase() + commandWord.substring(1).toLowerCase() + "Command")
                     .getConstructor(new Class<?>[]{ArrayList.class})
                     .newInstance(modifiers);
         } catch (Exception e) {

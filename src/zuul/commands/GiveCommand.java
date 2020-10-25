@@ -26,7 +26,7 @@ public class GiveCommand extends Command {
     /**
      * Execute the command. Try to give an item, otherwise print an error message.
      * @param character The game object to modify.
-     * @return False, we do not want to quit the game.
+     * @return True if command executes successfully, false otherwise.
      */
     public boolean execute(zuul.Character character) {
         if (!hasModifier(0)) {
@@ -61,7 +61,8 @@ public class GiveCommand extends Command {
         //remove the item from the current character and give it to the new one
         recipient.addItem(character.removeItem(i));
         recipient.addWeight(character.removeWeight(i));
-        return false;
+        System.out.println("You give " + recipient.getName() + " the " + item);
+        return true;
     }
 
 }

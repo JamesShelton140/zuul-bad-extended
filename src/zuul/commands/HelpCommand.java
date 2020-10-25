@@ -34,6 +34,6 @@ public class HelpCommand extends Command {
         System.out.println("Your command words are:");
 //        System.out.println("   go quit help");
         System.out.println(Arrays.toString(Game.getInstance().getParser().getCommandWords().getValidCommands()));
-        return false;
+        return true;
     }
 }

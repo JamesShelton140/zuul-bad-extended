@@ -25,7 +25,7 @@ public class TakeCommand extends Command {
      * Execute the command. Try to take an item from the current room, otherwise print an error
      * message.
      * @param character The character that is executing the command.
-     * @return false, do not quit;
+     * @return True if command executes successfully, false otherwise.
      */
     public boolean execute(zuul.Character character) {
         if (!hasModifiers()) {
@@ -52,6 +52,6 @@ public class TakeCommand extends Command {
         character.addWeight(w);
         System.out.println("You take the " + item);
 
-        return false;
+        return true;
     }
 }

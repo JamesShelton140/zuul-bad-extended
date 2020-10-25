@@ -37,9 +37,11 @@ public class GoCommand extends Command {
             System.out.println("There is no door!");
             return false;
         } else {
-            character.setCurrentRoom(nextRoom);
-            character.getCurrentRoom().printInfo();
-            return false;
+            character.getCurrentRoom().removeCharacter(character);  //leave current room
+            character.setCurrentRoom(nextRoom); //enter next room
+            character.getCurrentRoom().addCharacter(character); //enter next room
+            character.getCurrentRoom().printInfo(); //look around next room
+            return true;
         }
     }
 

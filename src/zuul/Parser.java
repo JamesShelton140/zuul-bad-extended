@@ -1,7 +1,5 @@
 package zuul;
 
-import zuul.commands.*;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -68,7 +66,7 @@ public class Parser
 
         // Try to create a command using the command word and modifiers
         // "go", "quit", "help", "look", "take", "drop", "give"
-        return commandFactory.getCommandReflexive(commandWord, modifiers);
+        return commandFactory.getCommand(commandWord, modifiers);
     }
 
     /**
