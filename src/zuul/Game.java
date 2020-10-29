@@ -91,9 +91,7 @@ public class Game {
             boolean commandSuccessful = false;
             do {
                 Command command = parser.getCommand();
-                if (command != null) {
-                    commandSuccessful = processCommand(command);
-                }
+                commandSuccessful = processCommand(command);
             } while (!commandSuccessful);
         }
         System.out.println("Thank you for playing.  Good bye.");

@@ -1,6 +1,7 @@
 package zuul;
 
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Scanner;
 
 /**
@@ -66,7 +67,14 @@ public class Parser
 
         // Try to create a command using the command word and modifiers
         // "go", "quit", "help", "look", "take", "drop", "give"
-        return commandFactory.getCommand(commandWord, modifiers);
+        Optional<Command> command = commandFactory.getCommand(commandWord, modifiers);
+
+        if (command.isPresent()) {
+            return command.get();
+        } else {
+            System.out.println("I don't know what you mean...");
+            return getCommand();
+        }
     }
 
     /**

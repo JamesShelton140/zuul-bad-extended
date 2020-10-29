@@ -3,6 +3,7 @@ package zuul;
 import zuul.commands.*;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class CommandFactory {
 
@@ -19,15 +20,14 @@ public class CommandFactory {
      * @param modifiers
      * @return
      */
-    public Command getCommand(String commandWord, ArrayList<String> modifiers) {
+    public Optional<Command> getCommand(String commandWord, ArrayList<String> modifiers) {
         try{
-            return (zuul.Command) Class
+            return Optional.of((zuul.Command) Class
                     .forName("zuul.commands." + commandWord.substring(0, 1).toUpperCase() + commandWord.substring(1).toLowerCase() + "Command")
                     .getConstructor(new Class<?>[]{ArrayList.class})
-                    .newInstance(modifiers);
+                    .newInstance(modifiers));
         } catch (Exception e) {
-            System.out.println("I don't know what you mean...");
-            return null;
+            return Optional.empty();
         }
     }
 
