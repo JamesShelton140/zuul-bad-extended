@@ -15,7 +15,7 @@ public class GoCommand extends Command {
     }
 
     /**
-     * Execute the command. Try to go to one direction. If there is an exit, enter the new room,
+     * Execute the command. Try to move the selected character to one direction. If there is an exit, enter the new room,
      * otherwise print an error message.
      * @param character The character object to execute the command on.
      * @return True if command executes successfully, false otherwise.
@@ -46,7 +46,7 @@ public class GoCommand extends Command {
     }
 
     /**
-     * Execute the command.
+     * Call execute(Character) to show the Game instance is being used despite not being passed in the method call.
      * @return True if command executes successfully, false otherwise.
      */
     @Override
