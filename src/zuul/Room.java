@@ -18,8 +18,7 @@ import java.util.Optional;
  * @author  Michael Kolling and David J. Barnes
  * @version 2006.03.30
  */
-public class Room 
-{
+public class Room implements CanHaveInventory {
     private String name;
     private String description;
     
@@ -27,7 +26,7 @@ public class Room
     private HashMap<String, Room> exits;
 
     // An item in the room
-    private Item item;
+    private Inventory inventory;
     
     // Characters in the room
     private ArrayList<Character> characters;
@@ -41,8 +40,8 @@ public class Room
     public Room(String name, String description) {
         this.exits = new HashMap<String, Room>();
         this.description = description;
-        this.item = null;
         this.characters = new ArrayList<>();
+        this.inventory = new Inventory();
     }
 
     /**
@@ -77,15 +76,6 @@ public class Room
     public String getDescription() {
         return description;
     }
-    
-    /**
-     * Add an item to the zuul.Room
-     * @param description The description of the item
-     * @param weight The item's weight
-     */
-    public void addItem(Item item) {
-        this.item = item;
-    }
 
     /**
      * @return The characters currently in the room.
@@ -99,57 +89,6 @@ public class Room
                 .filter(character -> character.getName().equals(name))
                 .findAny()
                 .get();
-    }
-
-    /**
-     * Does the room contain an item
-     * @param item The item
-     * @return The item's weight or 0 if none
-     */
-    public int containsItem(Item item) {
-        if (this.item != null && this.item.equals(item)) {
-            return item.getWeight();
-        } else {
-            return 0;
-        }
-    }
-
-    /**
-     * Check if the room contains an item with the given name.
-     * @param name Name of the item to find.
-     * @return Weight of the item if it exists, false otherwise.
-     */
-    public int containsItem(String name) {
-        if (this.item != null && this.item.getName().equals(name)) {
-            return item.getWeight();
-        } else {
-            return 0;
-        }
-    }
-
-    /**
-     * Remove an item from the zuul.Room
-     */
-    public Optional<Item> removeItem(Item item) {
-        if (this.item != null && this.item.equals(item)) {
-            Item tmp = this.item;
-            this.item = null;
-            return Optional.of(tmp);
-        } else {
-            System.out.println("This room does not contain" + item.getDescription());
-            return Optional.empty();
-        }
-    }
-
-    public Optional<Item> removeItem(String item) {
-        if (this.item != null && this.item.getName().equals(item)) {
-            Item tmp = this.item;
-            this.item = null;
-            return Optional.of(tmp);
-        } else {
-            System.out.println("This room does not contain" + item);
-            return Optional.empty();
-        }
     }
 
     /**
@@ -177,9 +116,8 @@ public class Room
         }
         System.out.println();
         System.out.print("Items: ");
-        if (item != null) {
-            System.out.print(item.getName()
-                    + '(' + item.getWeight() + ')');
+        if (inventory != null) {
+            System.out.print(inventory);
         }
         System.out.println();
         System.out.print("Characters: ");
@@ -203,5 +141,13 @@ public class Room
      */
     public void removeCharacter(Character character) {
         this.characters.remove(character);
+    }
+
+    /**
+     * @return The character's inventory.
+     */
+    @Override
+    public Inventory getInventory() {
+        return inventory;
     }
 }

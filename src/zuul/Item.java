@@ -58,18 +58,16 @@ public class Item {
         if (this == o) return true;
         if (!(o instanceof Item)) return false;
         Item item = (Item) o;
-        return weight == item.weight &&
-                name.equals(item.name) &&
-                description.equals(item.description);
+        return name.equals(item.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, weight, description);
+        return Objects.hash(name);
     }
 
     @Override
     public String toString() {
-        return name;
+        return name + '(' + weight + ')';
     }
 }

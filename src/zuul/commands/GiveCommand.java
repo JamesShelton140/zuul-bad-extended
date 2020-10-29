@@ -49,7 +49,7 @@ public class GiveCommand extends Command {
             return false;
         }
         //Check if the item is currently held
-        int i = character.getItemIndex(item);
+        int i = character.getInventory().getItemIndex(item);
         if (i == -1) {
             System.out.println("You don't have the " + item);
             return false;
@@ -59,7 +59,7 @@ public class GiveCommand extends Command {
         Character recipient = character.getCurrentRoom().getCharacter(whom);
 
         //remove the item from the current character and give it to the new one
-        recipient.addItem(character.removeItem(i));
+        recipient.getInventory().addItem(character.getInventory().removeItem(i));
         System.out.println("You give " + recipient.getName() + " the " + item);
         return true;
     }

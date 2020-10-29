@@ -36,12 +36,12 @@ public class DropCommand extends Command {
         }
 
         String item = getModifier(0);
-        int i = character.getItemIndex(item);
+        int i = character.getInventory().getItemIndex(item);
         if (i == -1) {
             System.out.println("You don't have the " + item);
             return false;
         }
-        character.getCurrentRoom().addItem(character.removeItem(i));
+        character.getCurrentRoom().getInventory().addItem(character.getInventory().removeItem(i));
         System.out.println("You drop the " + item);
         return true;
     }
