@@ -16,6 +16,6 @@ public class GameText {
     }
 
     public static String getString(String key) {
-        return ResourceBundle.getBundle("TextBundle", locale).getString(key);
+        return ResourceBundle.getBundle("zuul.TextBundle", locale).getString(key);
     }
 }
