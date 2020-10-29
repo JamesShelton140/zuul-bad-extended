@@ -105,11 +105,8 @@ public class Inventory {
                                     .filter(i -> i.getName()
                                     .equals(name))
                                     .findAny();
-        if (item.isPresent()) {
-            return item.get().getWeight();
-        } else {
-            return 0;
-        }
+
+        return item.orElse(new Item("blank", 0)).getWeight();
     }
 
     @Override
