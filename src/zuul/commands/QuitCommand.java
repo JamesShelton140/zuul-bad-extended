@@ -19,7 +19,7 @@ public class QuitCommand extends Command {
      * Constructor
      */
     public QuitCommand(ArrayList<String> modifiers) {
-        super(GameText.getString("quitCommandWord"), modifiers);
+        super(GameText.getString("CommandWordsBundle", "quit"), modifiers);
     }
 
     /**

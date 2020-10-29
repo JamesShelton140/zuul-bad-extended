@@ -61,11 +61,11 @@ public class Game {
         Room outside, theatre, pub, lab, office;
 
         // create the rooms
-        outside = new Room("outside", "outside the main entrance of the university");
-        theatre = new Room("theatre", "in a lecture theatre");
-        pub = new Room("pub", "in the campus pub");
-        lab = new Room("lab", "in a computing lab");
-        office = new Room("office", "in the computing admin office");
+        outside = new Room("outside", GameText.getString("outside"));
+        theatre = new Room("theatre", GameText.getString("theatre"));
+        pub = new Room("pub", GameText.getString("pub"));
+        lab = new Room("lab", GameText.getString("lab"));
+        office = new Room("office", GameText.getString("office"));
 
         // initialise room exits //zuul.Room north, zuul.Room east, zuul.Room south, zuul.Room west)
         outside.setExits(new String[]{"east", "south", "west"}, new Room[]{theatre, lab, pub});
@@ -94,7 +94,7 @@ public class Game {
                 commandSuccessful = processCommand(command);
             } while (!commandSuccessful);
         }
-        System.out.println("Thank you for playing.  Good bye.");
+        System.out.println(GameText.getString("goodBye"));
     }
 
     /**
@@ -102,9 +102,9 @@ public class Game {
      */
     private void printWelcome() {
         System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
-        System.out.println("Type 'help' if you need help.");
+        System.out.println(GameText.getString("welcome_ln1"));
+        System.out.println(GameText.getString("welcome_ln2"));
+        System.out.println(GameText.getString("welcome_ln3"));
         System.out.println();
         characters.get(0).getCurrentRoom().printInfo(); //Print info for starting room of player 1
     }
