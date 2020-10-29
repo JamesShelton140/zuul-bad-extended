@@ -34,23 +34,23 @@ public class TakeCommand extends Command {
             return false;
         }
 
-        String item = getModifier(0);
-        int w = character.getCurrentRoom().containsItem(item);
+        String itemName = getModifier(0);
+        int w = character.getCurrentRoom().containsItem(itemName);
         if (w == 0) {
             // The item is not in the room
-            System.out.println("No " + item + " in the room");
+            System.out.println("No " + itemName + " in the room");
             return false;
         }
+
         if (character.getTotalWeight() + w > character.getMAX_WEIGHT()) {
             // The player is carrying too much
-            System.out.println(item + " is too heavy");
+            System.out.println(itemName + " is too heavy");
             return false;
         }
         // OK we can pick it up
-        character.getCurrentRoom().removeItem(item);
+        Item item = character.getCurrentRoom().removeItem(itemName).get();
         character.addItem(item);
-        character.addWeight(w);
-        System.out.println("You take the " + item);
+        System.out.println("You take the " + itemName);
 
         return true;
     }

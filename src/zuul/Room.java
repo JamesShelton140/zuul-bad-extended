@@ -2,6 +2,7 @@ package zuul;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Optional;
 
 /**
  * Class zuul.Room - a room in an adventure game.
@@ -26,8 +27,7 @@ public class Room
     private HashMap<String, Room> exits;
 
     // An item in the room
-    private String itemDescription;
-    private int itemWeight;
+    private Item item;
     
     // Characters in the room
     private ArrayList<Character> characters;
@@ -41,8 +41,7 @@ public class Room
     public Room(String name, String description) {
         this.exits = new HashMap<String, Room>();
         this.description = description;
-        this.itemDescription = null;
-        this.itemWeight = 0;
+        this.item = null;
         this.characters = new ArrayList<>();
     }
 
@@ -84,37 +83,8 @@ public class Room
      * @param description The description of the item
      * @param weight The item's weight
      */
-    public void addItem(String description, int weight) {
-        itemDescription = description;
-        itemWeight = weight;
-    }
-
-    /**
-     * @return The description of the item.
-     */
-    public String getItemDescription() {
-        return itemDescription;
-    }
-
-    /**
-     * Set the description of the item.
-     */
-    public void setItemDescription(String itemDescription) {
-        this.itemDescription = itemDescription;
-    }
-
-    /**
-     * @return The weight of the item.
-     */
-    public int getItemWeight() {
-        return itemWeight;
-    }
-
-    /**
-     * Set the weight of the item.
-     */
-    public void setItemWeight(int itemWeight) {
-        this.itemWeight = itemWeight;
+    public void addItem(Item item) {
+        this.item = item;
     }
 
     /**
@@ -127,32 +97,58 @@ public class Room
     public zuul.Character getCharacter(String name){
         return characters.stream()
                 .filter(character -> character.getName().equals(name))
-                .findAny().get();
+                .findAny()
+                .get();
     }
 
     /**
      * Does the room contain an item
-     * @param description the item
-     * @return the item's weight or 0 if none
+     * @param item The item
+     * @return The item's weight or 0 if none
      */
-    public int containsItem(String description) {
-        if (itemDescription != null && itemDescription.equals(description))
-            return itemWeight;
-        else return 0;
+    public int containsItem(Item item) {
+        if (this.item != null && this.item.equals(item)) {
+            return item.getWeight();
+        } else {
+            return 0;
+        }
     }
-    
+
+    /**
+     * Check if the room contains an item with the given name.
+     * @param name Name of the item to find.
+     * @return Weight of the item if it exists, false otherwise.
+     */
+    public int containsItem(String name) {
+        if (this.item != null && this.item.getName().equals(name)) {
+            return item.getWeight();
+        } else {
+            return 0;
+        }
+    }
+
     /**
      * Remove an item from the zuul.Room
      */
-    public String removeItem(String description) {
-        if (itemDescription.equals(description)) {
-            String tmp = itemDescription;
-            itemDescription = null;
-            return tmp;
+    public Optional<Item> removeItem(Item item) {
+        if (this.item != null && this.item.equals(item)) {
+            Item tmp = this.item;
+            this.item = null;
+            return Optional.of(tmp);
+        } else {
+            System.out.println("This room does not contain" + item.getDescription());
+            return Optional.empty();
         }
-        else {
-            System.out.println("This room does not contain" + description);
-            return null;
+    }
+
+    public Optional<Item> removeItem(String item) {
+        if (this.item != null && this.item.getName().equals(item)) {
+            Item tmp = this.item;
+            this.item = null;
+            return Optional.of(tmp);
+        } else {
+            System.out.println("This room does not contain" + item);
+            return Optional.empty();
         }
     }
 
@@ -181,9 +177,9 @@ public class Room
         }
         System.out.println();
         System.out.print("Items: ");
-        if (getItemDescription() != null) {
-            System.out.print(getItemDescription()
-                    + '(' + getItemWeight() + ')');
+        if (item != null) {
+            System.out.print(item.getName()
+                    + '(' + item.getWeight() + ')');
         }
         System.out.println();
         System.out.print("Characters: ");

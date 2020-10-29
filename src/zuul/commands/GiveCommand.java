@@ -60,7 +60,6 @@ public class GiveCommand extends Command {
 
         //remove the item from the current character and give it to the new one
         recipient.addItem(character.removeItem(i));
-        recipient.addWeight(character.removeWeight(i));
         System.out.println("You give " + recipient.getName() + " the " + item);
         return true;
     }

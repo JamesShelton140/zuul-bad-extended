@@ -8,9 +8,7 @@ public abstract class Character {
     //zuul.Character fields
     private String name;
     private Room currentRoom;
-    private ArrayList<String> items;
-    private ArrayList<Integer> weights;
-    private int totalWeight;
+    private ArrayList<Item> items;
     private final int MAX_WEIGHT = 10;
 
 
@@ -21,9 +19,7 @@ public abstract class Character {
         this.name = name;
         this.currentRoom = startingRoom;
         startingRoom.addCharacter(this);
-        this.items = new ArrayList<String>();
-        this.weights = new ArrayList<Integer>();
-        this.totalWeight = 0;
+        this.items = new ArrayList<Item>();
     }
 
     /**
@@ -44,7 +40,7 @@ public abstract class Character {
     /**
      * Add an item.
      */
-    public void addItem(String item) {
+    public void addItem(Item item) {
         items.add(item);
     }
 
@@ -52,7 +48,7 @@ public abstract class Character {
      * Remove an item from the items array.
      * @param index Index of item to be removed.
      */
-    public String removeItem(int index) {
+    public Item removeItem(int index) {
         return items.remove(index);
     }
 
@@ -61,34 +57,27 @@ public abstract class Character {
      * @param item the item to check for.
      * @return The index of item parameter if it exists in the array. -1 otherwise.
      */
-    public int getItemIndex(String item) {
+    public int getItemIndex(Item item) {
         return items.indexOf(item);
     }
 
     /**
-     * Add a weight.
-     * @param weight
+     * Get the index of an item in the items array.
+     * @param itemName the item to check for.
+     * @return The index of item parameter if it exists in the array. -1 otherwise.
      */
-    public void addWeight(int weight) {
-        weights.add(weight);
-        totalWeight += weight;
-    }
-
-    /**
-     * Remove a weight from the weights array.
-     * @param index Index of weight to be removed.
-     * @return The value of the weight that was removed.
-     */
-    public Integer removeWeight(int index) {
-        totalWeight -= weights.get(index);
-        return weights.remove(index);
+    public int getItemIndex(String itemName) {
+        return items.indexOf(items.stream()
+                .filter(item -> item.getName().equals(itemName))
+                .findAny()
+                .get());
     }
 
     /**
      * @return The total weight currently held.
      */
     public int getTotalWeight(){
-        return totalWeight;
+        return items.stream().mapToInt(Item::getWeight).sum();
     }
 
     /**

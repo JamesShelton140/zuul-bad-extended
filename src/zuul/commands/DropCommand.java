@@ -41,9 +41,7 @@ public class DropCommand extends Command {
             System.out.println("You don't have the " + item);
             return false;
         }
-        character.removeItem(i);
-        int w = (Integer) character.removeWeight(i);
-        character.getCurrentRoom().addItem(item, w);
+        character.getCurrentRoom().addItem(character.removeItem(i));
         System.out.println("You drop the " + item);
         return true;
     }
