@@ -17,7 +17,7 @@ public class Main {
     public static void main(String[] args) {
 
         /**
-         * Set the locale for this instance of Zuul. With default "en, US" if no locale specified on program start.
+         * Set the locale for this instance of Zuul. With default "en, GB" if no locale specified on program start.
          *
          * Arg check from java i18n trail: https://docs.oracle.com/javase/tutorial/i18n/intro/after.html
          */
@@ -26,7 +26,7 @@ public class Main {
 
         if (args.length != 2) {
             language = new String("en");
-            country = new String("US");
+            country = new String("GB");
         } else {
             language = new String(args[0]);
             country = new String(args[1]);

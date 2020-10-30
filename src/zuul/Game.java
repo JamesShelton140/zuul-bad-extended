@@ -104,7 +104,8 @@ public class Game {
         System.out.println();
         System.out.println(GameText.getString("welcome_ln1"));
         System.out.println(GameText.getString("welcome_ln2"));
-        System.out.println(GameText.getString("welcome_ln3"));
+        System.out.println(GameText.getString("welcome_ln3",
+                new Object[] {GameText.getString("CommandWordsBundle", "help")}));
         System.out.println();
         characters.get(0).getCurrentRoom().printInfo(); //Print info for starting room of player 1
     }

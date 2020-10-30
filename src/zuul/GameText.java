@@ -16,6 +16,7 @@ public class GameText {
     private static Locale locale;
     private static Collator localeCollator;
     private static MessageFormat formatter;
+    private static final String bundleDir = "zuul.resourceBundles.";
 
     public static void setLocale(Locale locale) {
         GameText.locale = locale;
@@ -25,7 +26,7 @@ public class GameText {
     }
 
     public static String getString(String key) {
-        return ResourceBundle.getBundle("zuul.GameTextBundle", locale).getString(key);
+        return GameText.getString("GameTextBundle", key);
     }
 
     public static String getString(String key, Object[] arguments) {
@@ -34,11 +35,11 @@ public class GameText {
     }
 
     public static String getString(String bundle, String key) {
-        return ResourceBundle.getBundle("zuul."+bundle, locale).getString(key);
+        return ResourceBundle.getBundle(bundleDir+bundle, locale).getString(key);
     }
 
     public static Set<String> getCommandWords() {
-        return ResourceBundle.getBundle("zuul.CommandWordsBundle", locale).keySet();
+        return ResourceBundle.getBundle("zuul.resourceBundles.CommandWordsBundle", locale).keySet();
     }
 
     public static Collator getCollator() {
