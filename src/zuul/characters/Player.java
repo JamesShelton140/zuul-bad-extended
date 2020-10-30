@@ -1,6 +1,8 @@
 package zuul.characters;
 
 import zuul.Character;
+import zuul.Command;
+import zuul.Game;
 import zuul.Room;
 
 public class Player extends Character {
@@ -19,6 +21,23 @@ public class Player extends Character {
      */
     public Player(String name) {
         this(name, null);
+    }
+
+    /**
+     * The Player performs an action by getting a command from the Game's Parser and processing it.
+     * Method does not return until a command is successfully processed.
+     */
+    @Override
+    public void act() {
+        //Look around the current room to remind us where we are
+        getCurrentRoom().printInfo();
+
+        boolean commandProcessed = false;
+        do {
+            System.out.print(getName() + " ");
+            Command command = Game.getInstance().getParser().getCommand();
+            commandProcessed = processCommand(command);
+        } while (!commandProcessed);
     }
 
 }

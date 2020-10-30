@@ -1,6 +1,7 @@
 package zuul.commands;
 
 import zuul.*;
+import zuul.Character;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +30,7 @@ public class HelpCommand extends Command {
      * @return True if command executes successfully, false otherwise.
      */
     @Override
-    public boolean execute() {
+    public boolean execute(Character character) {
         System.out.println(GameText.getString("help_ln1"));
         System.out.println(GameText.getString("help_ln2"));
         System.out.println();

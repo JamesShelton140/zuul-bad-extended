@@ -51,7 +51,7 @@ public abstract class Command
      * Execute the command.
      * @return whether the command executed successfully.
      */
-    public abstract boolean execute();
+    public abstract boolean execute(zuul.Character character);
 
     /**
      * @return true if command has at least one modifier word, false otherwise

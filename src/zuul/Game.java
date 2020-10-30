@@ -24,6 +24,7 @@ public class Game {
 
     //Static instance of zuul.Game class to ensure a single instance is active. (Singleton pattern)
     private static Game gameInstance;
+    private final Map map;
 
     //zuul.Game fields
     private Parser parser;
@@ -35,9 +36,8 @@ public class Game {
      * Create the game and initialise its internal map.
      */
     private Game() {
-        createRooms();
+        map = new ZuulMap();
         parser = new Parser();
-        this.characters.add(new Player("Player_1", startingRoom));
     }
 
     /**
@@ -55,69 +55,19 @@ public class Game {
     }
 
     /**
-     * Create all the rooms and link their exits together.
-     */
-    private void createRooms() {
-        Room outside, theatre, pub, lab, office;
-
-        // create the rooms
-        outside = new Room("outside", GameText.getString("outside"));
-        theatre = new Room("theatre", GameText.getString("theatre"));
-        pub = new Room("pub", GameText.getString("pub"));
-        lab = new Room("lab", GameText.getString("lab"));
-        office = new Room("office", GameText.getString("office"));
-
-        // initialise room exits //zuul.Room north, zuul.Room east, zuul.Room south, zuul.Room west)
-        outside.setExits(new String[]{GameText.getString("east"), GameText.getString("south"), GameText.getString("west")}, new Room[]{theatre, lab, pub});
-        outside.getInventory().addItem(new Item(GameText.getString("notebook"), 2));
-        theatre.setExits(new String[]{GameText.getString("west")}, new Room[]{outside});
-        pub.setExits(new String[]{GameText.getString("east")}, new Room[]{outside});
-        lab.setExits(new String[]{GameText.getString("north"), GameText.getString("east")}, new Room[]{outside, office});
-        office.setExits(new String[]{GameText.getString("west")}, new Room[]{lab});
-
-        startingRoom = outside;  // start game outside
-    }
-
-    /**
      * zuul.Main play routine. Loops until end of play.
      */
     public void play() {
-        printWelcome();
+        map.printWelcome();
 
-        // Enter the main command loop.  Here we repeatedly read zuul.commands and
-        // execute them until the game is over.
+        // Enter the main command loop.
+        // Here we ask every character in the map to act until a player quits the game.
 
         while (!finished) {
-            boolean commandSuccessful = false;
-            do {
-                Command command = parser.getCommand();
-                commandSuccessful = processCommand(command);
-            } while (!commandSuccessful);
+            map.forEachCharacter(Character::act);
         }
+
         System.out.println(GameText.getString("goodBye"));
-    }
-
-    /**
-     * Print out the opening message for the player.
-     */
-    private void printWelcome() {
-        System.out.println();
-        System.out.println(GameText.getString("welcome_ln1"));
-        System.out.println(GameText.getString("welcome_ln2"));
-        System.out.println(GameText.getString("welcome_ln3",
-                new Object[] {GameText.getString("CommandWordsBundle", "help")}));
-        System.out.println();
-        characters.get(0).getCurrentRoom().printInfo(); //Print info for starting room of player 1
-    }
-
-    /**
-     * Given a command, process (that is: execute) the command.
-     *
-     * @param command The command to be processed.
-     * @return true If the command executed properly, false otherwise.
-     */
-    private boolean processCommand(Command command) {
-        return command.execute();
     }
 
     // Getters and setters for class fields.
@@ -127,15 +77,6 @@ public class Game {
      */
     public Parser getParser(){
         return parser;
-    }
-
-    /**
-     * Return the character at index, 'index'.
-     * @param index The index of characters to retrieve.
-     * @return Character in position 'index'.
-     */
-    public zuul.Character getCharacter(int index) {
-        return characters.get(index);
     }
 
     public void finish() {

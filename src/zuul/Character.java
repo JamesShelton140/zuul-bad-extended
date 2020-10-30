@@ -87,4 +87,19 @@ public abstract class Character {
     public Inventory getInventory() {
         return inventory;
     }
+
+    /**
+     * The character performs an action
+     */
+    public abstract void act();
+
+    /**
+     * Given a command, process (that is: execute) the command.
+     *
+     * @param command The command to be processed.
+     * @return true If the command executed properly, false otherwise.
+     */
+    protected boolean processCommand(Command command) {
+        return command.execute(this);
+    }
 }

@@ -20,6 +20,7 @@ public class GoCommand extends Command {
      * @param character The character object to execute the command on.
      * @return True if command executes successfully, false otherwise.
      */
+    @Override
     public boolean execute(Character character) {
         if (!hasModifiers()) {
             // if there is no modifier, we don't know where to go...
@@ -40,17 +41,9 @@ public class GoCommand extends Command {
             character.getCurrentRoom().removeCharacter(character);  //leave current room
             character.setCurrentRoom(nextRoom); //enter next room
             nextRoom.addCharacter(character); //enter next room
-            nextRoom.printInfo(); //look around next room
+            //nextRoom.printInfo(); //look around next room
+            System.out.println(GameText.getString("goSuccessful", new Object[]{direction}));
             return true;
         }
-    }
-
-    /**
-     * Call execute(Character) to show the Game instance is being used despite not being passed in the method call.
-     * @return True if command executes successfully, false otherwise.
-     */
-    @Override
-    public boolean execute() {
-        return execute(Game.getInstance().getCharacter(0));
     }
 }

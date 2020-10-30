@@ -13,20 +13,12 @@ public class TakeCommand extends Command {
     }
 
     /**
-     * Execute the command.
-     * @return True if command executes successfully, false otherwise.
-     */
-    @Override
-    public boolean execute() {
-        return execute(Game.getInstance().getCharacter(0));
-    }
-
-    /**
      * Execute the command. Try to take an item from the current room, otherwise print an error
      * message.
      * @param character The character that is executing the command.
      * @return True if command executes successfully, false otherwise.
      */
+    @Override
     public boolean execute(zuul.Character character) {
         if (!hasModifiers()) {
             // if there is no second word, we don't know what to take...

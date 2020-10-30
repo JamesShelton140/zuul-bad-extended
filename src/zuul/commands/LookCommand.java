@@ -24,19 +24,11 @@ public class LookCommand extends Command {
     }
 
     /**
-     * Execute the command.
-     * @return True if command executes successfully, false otherwise.
-     */
-    @Override
-    public boolean execute() {
-        return execute(Game.getInstance().getCharacter(0));
-    }
-
-    /**
      * Execute the command
      * @return True if command executes successfully, false otherwise.
      * @param character
      */
+    @Override
     public boolean execute(zuul.Character character) {
         character.getCurrentRoom().printInfo();
         return true;
