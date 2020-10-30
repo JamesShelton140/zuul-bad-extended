@@ -12,7 +12,7 @@ public class QuitCommand extends Command {
      * Constructor
      */
     public QuitCommand() {
-        super(GameText.getString("quitCommandWord"));
+        super(GameText.getString("CommandWordsBundle", "quit"));
     }
 
     /**

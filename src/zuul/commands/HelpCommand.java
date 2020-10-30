@@ -13,14 +13,14 @@ public class HelpCommand extends Command {
      * Constructor
      */
     public HelpCommand() {
-        super("help");
+        super(GameText.getString("CommandWordsBundle", "help"));
     }
 
     /**
      * Constructor
      */
     public HelpCommand(ArrayList<String> modifiers) {
-        super("help");
+        super(GameText.getString("CommandWordsBundle", "help"));
     }
 
     /**
@@ -30,15 +30,15 @@ public class HelpCommand extends Command {
      */
     @Override
     public boolean execute() {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
+        System.out.println(GameText.getString("help_ln1"));
+        System.out.println(GameText.getString("help_ln2"));
         System.out.println();
-        System.out.println("Your command words are:");
+        System.out.println(GameText.getString("helpCommandWordsDisplay"));
 //        System.out.println("   go quit help");
 //        System.out.println(Arrays.toString(Game.getInstance().getParser().getCommandWords().getValidCommands()));
         System.out.println(GameText.getCommandWords().stream()
                 .map(key -> GameText.getString("CommandWordsBundle", key))
-                .sorted(Comparator.comparing(String::toString, GameText.getCollator()))
+                .sorted(Comparator.comparing(String::toString, GameText.getCollator())) //sort the command words alphabetically by locale.
                 .collect(Collectors.joining(", "))
         );
         return true;

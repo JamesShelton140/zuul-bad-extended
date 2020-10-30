@@ -68,12 +68,12 @@ public class Game {
         office = new Room("office", GameText.getString("office"));
 
         // initialise room exits //zuul.Room north, zuul.Room east, zuul.Room south, zuul.Room west)
-        outside.setExits(new String[]{"east", "south", "west"}, new Room[]{theatre, lab, pub});
-        outside.getInventory().addItem(new Item("notebook", 2));
-        theatre.setExits(new String[]{"west"}, new Room[]{outside});
-        pub.setExits(new String[]{"east"}, new Room[]{outside});
-        lab.setExits(new String[]{"north", "east"}, new Room[]{outside, office});
-        office.setExits(new String[]{"west"}, new Room[]{lab});
+        outside.setExits(new String[]{GameText.getString("east"), GameText.getString("south"), GameText.getString("west")}, new Room[]{theatre, lab, pub});
+        outside.getInventory().addItem(new Item(GameText.getString("notebook"), 2));
+        theatre.setExits(new String[]{GameText.getString("west")}, new Room[]{outside});
+        pub.setExits(new String[]{GameText.getString("east")}, new Room[]{outside});
+        lab.setExits(new String[]{GameText.getString("north"), GameText.getString("east")}, new Room[]{outside, office});
+        office.setExits(new String[]{GameText.getString("west")}, new Room[]{lab});
 
         startingRoom = outside;  // start game outside
     }

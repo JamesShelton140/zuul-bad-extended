@@ -11,7 +11,7 @@ public class GoCommand extends Command {
      * Constructor
      */
     public GoCommand(ArrayList<String> modifiers) {
-        super("go", modifiers);
+        super(GameText.getString("CommandWordsBundle", "go"), modifiers);
     }
 
     /**
@@ -23,7 +23,7 @@ public class GoCommand extends Command {
     public boolean execute(Character character) {
         if (!hasModifiers()) {
             // if there is no modifier, we don't know where to go...
-            System.out.println("Go where?");
+            System.out.println(GameText.getString("goHasNoModifiersError"));
             return false;
         }
 
@@ -34,7 +34,7 @@ public class GoCommand extends Command {
         nextRoom = character.getCurrentRoom().getExit(direction);
 
         if (nextRoom == null) {
-            System.out.println("There is no door!");
+            System.out.println(GameText.getString("goNoExitError"));
             return false;
         } else {
             character.getCurrentRoom().removeCharacter(character);  //leave current room

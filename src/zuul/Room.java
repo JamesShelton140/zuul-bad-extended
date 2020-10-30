@@ -3,6 +3,7 @@ package zuul;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Class zuul.Room - a room in an adventure game.
@@ -18,7 +19,7 @@ import java.util.Optional;
  * @author  Michael Kolling and David J. Barnes
  * @version 2006.03.30
  */
-public class Room implements CanHaveInventory {
+public class Room {
     private String name;
     private String description;
     
@@ -53,7 +54,7 @@ public class Room implements CanHaveInventory {
     public void setExits(String[] directions, Room[] rooms) {
         if (directions.length > rooms.length) {
             //not every exit leads to a room!
-            System.out.println("Every exit must lead to a room!");
+            System.out.println(GameText.getString("exitNoRoomError"));
             return;
         }
         for(int i = 0; i < directions.length; i++) {
@@ -98,7 +99,7 @@ public class Room implements CanHaveInventory {
     public Room getExit(String exit) {
         //Check if exit exists
         if (!this.exits.containsKey(exit)) {
-            System.out.println("No such exit exists!");
+            System.out.println(GameText.getString("noSuchExitError"));
             return null;
         }
 
@@ -110,17 +111,15 @@ public class Room implements CanHaveInventory {
      */
     public void printInfo() {
         System.out.println("You are " + getDescription());
-        System.out.print("Exits: ");
-        for (String exit: exits.keySet()) {
-            System.out.print(exit + " ");
-        }
+        System.out.print(GameText.getString("exitsDisplay"));
+        System.out.print(String.join(" ", exits.keySet()));
         System.out.println();
-        System.out.print("Items: ");
+        System.out.print(GameText.getString("itemsDisplay"));
         if (inventory != null) {
             System.out.print(inventory);
         }
         System.out.println();
-        System.out.print("Characters: ");
+        System.out.print(GameText.getString("charactersDisplay"));
         if (characters != null && characters.size() != 0) {
             characters.stream().forEach(character -> System.out.println(character.getName()));
         }
@@ -146,7 +145,6 @@ public class Room implements CanHaveInventory {
     /**
      * @return The character's inventory.
      */
-    @Override
     public Inventory getInventory() {
         return inventory;
     }

@@ -3,6 +3,7 @@ package zuul.commands;
 import zuul.Character;
 import zuul.Command;
 import zuul.Game;
+import zuul.GameText;
 
 import java.util.ArrayList;
 
@@ -12,14 +13,14 @@ public class LookCommand extends Command {
      * Constructor
      */
     public LookCommand() {
-        super("look");
+        super(GameText.getString("CommandWordsBundle", "look"));
     }
 
     /**
      * Constructor
      */
     public LookCommand(ArrayList<String> modifiers) {
-        super("look");
+        super(GameText.getString("CommandWordsBundle", "look"));
     }
 
     /**

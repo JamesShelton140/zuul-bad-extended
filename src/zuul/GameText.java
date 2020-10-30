@@ -1,6 +1,8 @@
 package zuul;
 
 import java.text.Collator;
+import java.text.MessageFormat;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -13,14 +15,22 @@ import java.util.Set;
 public class GameText {
     private static Locale locale;
     private static Collator localeCollator;
+    private static MessageFormat formatter;
 
     public static void setLocale(Locale locale) {
         GameText.locale = locale;
-        GameText.localeCollator = Collator.getInstance(locale);
+        GameText.localeCollator = Collator.getInstance(locale); //locale specific collator for string comparison
+        GameText.formatter = new MessageFormat("");
+        formatter.setLocale(locale);
     }
 
     public static String getString(String key) {
         return ResourceBundle.getBundle("zuul.GameTextBundle", locale).getString(key);
+    }
+
+    public static String getString(String key, Object[] arguments) {
+        formatter.applyPattern(GameText.getString(key));
+        return formatter.format(arguments);
     }
 
     public static String getString(String bundle, String key) {

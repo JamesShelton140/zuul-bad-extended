@@ -11,7 +11,7 @@ public class DropCommand extends Command {
      * Constructor
      */
     public DropCommand(ArrayList<String> modifiers) {
-        super("drop", modifiers);
+        super(GameText.getString("CommandWordsBundle","drop"), modifiers);
     }
 
     /**
@@ -31,18 +31,18 @@ public class DropCommand extends Command {
     public boolean execute(zuul.Character character){
         if (!hasModifiers()) {
             // if there is no second word, we don't know what to drop...
-            System.out.println("Drop what?");
+            System.out.println(GameText.getString("dropHasNoModifiersError"));
             return false;
         }
 
         String item = getModifier(0);
         int i = character.getInventory().getItemIndex(item);
         if (i == -1) {
-            System.out.println("You don't have the " + item);
+            System.out.println(GameText.getString("dropItemNotHeldError", new Object[]{item}));
             return false;
         }
         character.getCurrentRoom().getInventory().addItem(character.getInventory().removeItem(i));
-        System.out.println("You drop the " + item);
+        System.out.println(GameText.getString("dropSuccessful", new Object[]{item}));
         return true;
     }
 }
