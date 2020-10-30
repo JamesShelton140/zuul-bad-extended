@@ -1,6 +1,7 @@
 package zuul;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * This class is part of the "World of Zuul" application. 
@@ -54,17 +55,21 @@ public abstract class Command
     public abstract boolean execute(zuul.Character character);
 
     /**
+     * @return Modifier number i
+     */
+    public Optional<String> getModifier(int i) {
+        if(hasModifier(i)) {
+            return Optional.of(modifiers.get(i));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    /**
      * @return true if command has at least one modifier word, false otherwise
      */
     public boolean hasModifiers() {
         return (modifiers != null) && (modifiers.size() != 0);
-    }
-
-    /**
-     * @return Modifier number i
-     */
-    public String getModifier(int i) {
-        return modifiers.get(i);
     }
 
     /**
@@ -75,5 +80,12 @@ public abstract class Command
     public boolean hasModifier(int i) {
         return (modifiers.size() > i) && (modifiers.get(i) != null);
     }
+
+    /**
+     * print a success message if the command was called by a player
+     */
+//    protected void printSuccess() {
+//        System.out.println(GameText.getString(commandWord + "Successful", new Object[]{item}));
+//    }
 }
 

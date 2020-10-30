@@ -86,25 +86,24 @@ public class Room {
         return (ArrayList<Character>) characters.clone();
     }
 
-    public zuul.Character getCharacter(String name){
+    public Optional<Character> getCharacter(String name){
         return characters.stream()
                 .filter(character -> character.getName().equals(name))
-                .findAny()
-                .get();
+                .findAny();
     }
 
     /**
      * @return the room in direction exit or null if it doesn't exist
      */
 
-    public Room getExit(String exit) {
+    public Optional<Room> getExit(String exit) {
         //Check if exit exists
         if (!this.exits.containsKey(exit)) {
             System.out.println(GameText.getString("noSuchExitError"));
-            return null;
+            return Optional.empty();
         }
 
-        return this.exits.get(exit);
+        return Optional.of(this.exits.get(exit));
     }
 
     /**

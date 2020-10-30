@@ -4,6 +4,7 @@ import zuul.*;
 import zuul.Character;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class GoCommand extends Command {
 
@@ -22,22 +23,27 @@ public class GoCommand extends Command {
      */
     @Override
     public boolean execute(Character character) {
-        if (!hasModifiers()) {
+
+        Optional<String> opDirection = getModifier(0);
+
+        if (opDirection.isEmpty()) {
             // if there is no modifier, we don't know where to go...
             System.out.println(GameText.getString("goHasNoModifiersError"));
             return false;
         }
 
-        String direction = getModifier(0);
+        String direction = opDirection.get();
 
         // Try to leave current room.
-        Room nextRoom = null;
-        nextRoom = character.getCurrentRoom().getExit(direction);
+        Optional<Room> opNextRoom = character.getCurrentRoom().getExit(direction);
 
-        if (nextRoom == null) {
+        if (opNextRoom.isEmpty()) {
             System.out.println(GameText.getString("goNoExitError"));
             return false;
         } else {
+            //Exit room exists so unwrap it
+            Room nextRoom = opNextRoom.get();
+
             character.getCurrentRoom().removeCharacter(character);  //leave current room
             character.setCurrentRoom(nextRoom); //enter next room
             nextRoom.addCharacter(character); //enter next room

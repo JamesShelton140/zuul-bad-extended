@@ -3,6 +3,7 @@ package zuul;
 import zuul.characters.Player;
 
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public abstract class Map {
@@ -28,8 +29,14 @@ public abstract class Map {
      * @param character The character to retrieve.
      * @return Character in position 'index'.
      */
-    public zuul.Character getCharacter(Character character) {
-        return characters.get(character);
+    public Optional<Character> getCharacter(Character character) {
+        Character characterFound = characters.get(character);
+
+        if(characterFound == null) {
+            return Optional.empty();
+        }
+
+        return Optional.of(characterFound);
     }
 
     /**

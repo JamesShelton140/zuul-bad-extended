@@ -29,25 +29,24 @@ public class Inventory {
      * Remove an item from the items array.
      * @param index Index of item to be removed.
      */
-    public Item removeItem(int index) {
-        return items.remove(index);
+    public void removeItem(int index) {
+        removeItem(items.get(index));
     }
 
     /**
      * Remove an item from the items array.
      * @param item Index of item to be removed.
      */
-    public Item removeItem(Item item) {
+    public void removeItem(Item item) {
         items.remove(item);
-        return item;
     }
 
     /**
      * Remove an item from the items array.
      * @param name Index of item to be removed.
      */
-    public Item removeItem(String name) {
-        return items.remove(getItemIndex(name));
+    public void removeItem(String name) {
+        removeItem(new Item(name, 0));
     }
 
     /**
@@ -69,6 +68,32 @@ public class Inventory {
     }
 
     /**
+     * Get the specified item if it is in the inventory.
+     * @param item The item to get
+     * @return Optional<Item> containing the requested item if found, empty otherwise.
+     */
+    public Optional<Item> getItem(Item item) {
+        int index = getItemIndex(item);
+
+        if(index == -1) {
+            //item is not in inventory, return empty
+            return Optional.empty();
+        } else {
+            //item found, return it
+            return Optional.of(items.get(index));
+        }
+    }
+
+    /**
+     * Get an item with the specified name if it is in the inventory.
+     * @param name The name of the item to get.
+     * @return Optional<Item> containing the requested item if found, empty otherwise.
+     */
+    public Optional<Item> getItem(String name) {
+        return getItem(new Item(name, 0));
+    }
+
+    /**
      * @return The total weight currently held.
      */
     public int getTotalWeight(){
@@ -85,28 +110,31 @@ public class Inventory {
     /**
      * Does the room contain an item
      * @param item The item
-     * @return The item's weight or 0 if none
+     * @return True if the room contains the given item, false otherwise
      */
-    public int containsItem(Item item) {
+    public boolean containsItem(Item item) {
         if (this.items.contains(item)) {
-            return item.getWeight();
+            return true;
         } else {
-            return 0;
+            return false;
         }
     }
 
     /**
      * Check if the room contains an item with the given name.
      * @param name Name of the item to find.
-     * @return Weight of the item if it exists, false otherwise.
+     * @return True if the room contains the given item, false otherwise
      */
-    public int containsItem(String name) {
+    public boolean containsItem(String name) {
         Optional<Item> item = items.stream()
-                                    .filter(i -> i.getName()
-                                    .equals(name))
+                                    .filter(i -> i.getName().equals(name))
                                     .findAny();
 
-        return item.orElse(new Item("blank", 0)).getWeight();
+        if (item.isPresent()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

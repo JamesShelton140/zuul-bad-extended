@@ -4,6 +4,7 @@ import zuul.*;
 import zuul.Character;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class GiveCommand extends Command {
 
@@ -21,37 +22,54 @@ public class GiveCommand extends Command {
      */
     @Override
     public boolean execute(zuul.Character character) {
-        if (!hasModifier(0)) {
+        Optional<String> opItemName = getModifier(0);
+
+        if (opItemName.isEmpty()) {
             // if there is no second word, we don't know what to give...
             System.out.println(GameText.getString("giveNoItemError"));
             return false;
         }
-        if (!hasModifier(1)) {
+
+        Optional<String> opWhom = getModifier(1);
+
+        if (opWhom.isEmpty()) {
             // if there is no third word, we don't to whom to give it...
             System.out.println(GameText.getString("giveNoCharacterError"));
             return false;
         }
 
-        String item = getModifier(0);
-        String whom = getModifier(1);
+        //modifiers exist so unwrap them
+        String itemName = opItemName.get();
+        String whom = opWhom.get();
 
-        if (character.getCurrentRoom().getCharacters().stream().noneMatch(character1 -> character1.getName().equals(whom))) {
+
+        //get the new character by name
+        Optional<Character> opRecipient = character.getCurrentRoom().getCharacter(whom);
+
+        if (opRecipient.isEmpty()) {
             // cannot give it if the character is not here
             System.out.println(GameText.getString("giveCharacterNotInRoomError", new Object[]{whom}));
             return false;
         }
+
+        //Character found so unwrap Optional
+        Character recipient = opRecipient.get();
+
         //Check if the item is currently held
-        int i = character.getInventory().getItemIndex(item);
-        if (i == -1) {
-            System.out.println(GameText.getString("giveItemNotHeldError", new Object[]{item}));
+        Optional<Item> opItem = character.getInventory().getItem(itemName);
+
+        if (opItem.isEmpty()) {
+            //Item not held by character
+            System.out.println(GameText.getString("giveItemNotHeldError", new Object[]{itemName}));
             return false;
         }
 
-        //get the new character by name
-        Character recipient = character.getCurrentRoom().getCharacter(whom);
+        //Item found so unwrap Optional
+        Item item = opItem.get();
 
-        //remove the item from the current character and give it to the new one
-        recipient.getInventory().addItem(character.getInventory().removeItem(i));
+
+        character.getInventory().removeItem(item); //remove the item from the current character
+        recipient.getInventory().addItem(item);  //give item to new character
         System.out.println(GameText.getString("giveSuccessful", new Object[]{recipient.getName(), item}));
         return true;
     }

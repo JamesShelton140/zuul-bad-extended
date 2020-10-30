@@ -1,7 +1,10 @@
 package zuul.commands;
 
 import java.util.ArrayList;
+import java.util.Optional;
+
 import zuul.*;
+import zuul.characters.Player;
 
 public class TakeCommand extends Command {
 
@@ -20,29 +23,42 @@ public class TakeCommand extends Command {
      */
     @Override
     public boolean execute(zuul.Character character) {
-        if (!hasModifiers()) {
+
+        Optional<String> opItemName = getModifier(0);
+
+        if (opItemName.isEmpty()) {
             // if there is no second word, we don't know what to take...
             System.out.println(GameText.getString("takeNoModifiersError"));
             return false;
         }
 
-        String itemName = getModifier(0);
-        int w = character.getCurrentRoom().getInventory().containsItem(itemName);
-        if (w == 0) {
+        String itemName = opItemName.get();
+
+        Optional<Item> opItem = character.getCurrentRoom().getInventory().getItem(itemName);
+
+        if (opItem.isEmpty()) {
             // The item is not in the room
             System.out.println(GameText.getString("takeItemNotInRoomError", new Object[]{itemName}));
             return false;
         }
 
-        if (character.getInventory().getTotalWeight() + w > character.getInventory().getMAX_WEIGHT()) {
+        //The item was found, unwrap it from Optional<Item>
+        Item item = opItem.get();
+
+        if (character.getInventory().getTotalWeight() + item.getWeight() > character.getInventory().getMAX_WEIGHT()) {
             // The player is carrying too much
             System.out.println(GameText.getString("takeItemTooHeavyError", new Object[]{itemName}));
             return false;
         }
+
         // OK we can pick it up
-        Item item = character.getCurrentRoom().getInventory().removeItem(itemName);
-        character.getInventory().addItem(item);
+        character.getCurrentRoom().getInventory().removeItem(item); //Remove item from room
+        character.getInventory().addItem(item); //Give item to player
+
+        //if (character instanceof Player) {
+            //Tell player that the command was successful
         System.out.println(GameText.getString("takeSuccessful", new Object[]{itemName}));
+        //}
 
         return true;
     }
