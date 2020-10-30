@@ -3,7 +3,7 @@ package zuul;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public abstract class Character implements CanHaveInventory {
+public abstract class Character {
 
     //zuul.Character fields
     private String name;
@@ -84,7 +84,6 @@ public abstract class Character implements CanHaveInventory {
     /**
      * @return The character's inventory.
      */
-    @Override
     public Inventory getInventory() {
         return inventory;
     }

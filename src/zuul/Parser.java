@@ -72,7 +72,7 @@ public class Parser
         if (command.isPresent()) {
             return command.get();
         } else {
-            System.out.println("I don't know what you mean...");
+            System.out.println(GameText.getString("unrecognisedCommandError"));
             return getCommand();
         }
     }

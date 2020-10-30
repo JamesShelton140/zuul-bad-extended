@@ -2,6 +2,7 @@ package zuul.commands;
 
 import zuul.Command;
 import zuul.Game;
+import zuul.GameText;
 
 import java.util.ArrayList;
 
@@ -11,14 +12,14 @@ public class QuitCommand extends Command {
      * Constructor
      */
     public QuitCommand() {
-        super("quit");
+        super(GameText.getString("CommandWordsBundle", "quit"));
     }
 
     /**
      * Constructor
      */
     public QuitCommand(ArrayList<String> modifiers) {
-        super("quit");
+        super(GameText.getString("CommandWordsBundle", "quit"), modifiers);
     }
 
     /**
@@ -38,7 +39,7 @@ public class QuitCommand extends Command {
      */
     public boolean execute(Game game) {
         if (hasModifiers()) {
-            System.out.println("Quit what?");
+            System.out.println(GameText.getString("quitHasModifiersError"));
             return false;
         } else {
             game.finish(); // signal that we want to quit

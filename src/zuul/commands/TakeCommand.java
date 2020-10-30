@@ -9,7 +9,7 @@ public class TakeCommand extends Command {
      * Constructor
      */
     public TakeCommand(ArrayList<String> modifiers) {
-        super("take", modifiers);
+        super(GameText.getString("CommandWordsBundle", "take"), modifiers);
     }
 
     /**
@@ -30,7 +30,7 @@ public class TakeCommand extends Command {
     public boolean execute(zuul.Character character) {
         if (!hasModifiers()) {
             // if there is no second word, we don't know what to take...
-            System.out.println("Take what?");
+            System.out.println(GameText.getString("takeNoModifiersError"));
             return false;
         }
 
@@ -38,19 +38,19 @@ public class TakeCommand extends Command {
         int w = character.getCurrentRoom().getInventory().containsItem(itemName);
         if (w == 0) {
             // The item is not in the room
-            System.out.println("No " + itemName + " in the room");
+            System.out.println(GameText.getString("takeItemNotInRoomError", new Object[]{itemName}));
             return false;
         }
 
         if (character.getInventory().getTotalWeight() + w > character.getInventory().getMAX_WEIGHT()) {
             // The player is carrying too much
-            System.out.println(itemName + " is too heavy");
+            System.out.println(GameText.getString("takeItemTooHeavyError", new Object[]{itemName}));
             return false;
         }
         // OK we can pick it up
         Item item = character.getCurrentRoom().getInventory().removeItem(itemName);
         character.getInventory().addItem(item);
-        System.out.println("You take the " + itemName);
+        System.out.println(GameText.getString("takeSuccessful", new Object[]{itemName}));
 
         return true;
     }
