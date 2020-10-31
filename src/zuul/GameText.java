@@ -13,15 +13,15 @@ import java.util.Set;
  */
 
 public class GameText {
+
     private static Locale locale;
     private static Collator localeCollator;
-    private static MessageFormat formatter;
+    private static MessageFormat formatter = new MessageFormat("");
     private static final String bundleDir = "zuul.resourceBundles.";
 
-    public static void setLocale(Locale locale) {
-        GameText.locale = locale;
-        GameText.localeCollator = Collator.getInstance(locale); //locale specific collator for string comparison
-        GameText.formatter = new MessageFormat("");
+    public static void setLocale(Locale localeToSet) {
+        locale = localeToSet;
+        localeCollator = Collator.getInstance(locale); //locale specific collator for string comparison
         formatter.setLocale(locale);
     }
 

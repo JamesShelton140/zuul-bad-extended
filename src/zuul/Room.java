@@ -40,6 +40,7 @@ public class Room {
      * @param description The room's description.
      */
     public Room(String name, String description) {
+        this.name = name;
         this.exits = new HashMap<String, Room>();
         this.description = description;
         this.characters = new ArrayList<>();
