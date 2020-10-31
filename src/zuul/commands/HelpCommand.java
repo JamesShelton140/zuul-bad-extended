@@ -42,6 +42,7 @@ public class HelpCommand extends Command {
                 .sorted(Comparator.comparing(String::toString, GameText.getCollator())) //sort the command words alphabetically by locale.
                 .collect(Collectors.joining(", "))
         );
+        System.out.println();
         return true;
     }
 }

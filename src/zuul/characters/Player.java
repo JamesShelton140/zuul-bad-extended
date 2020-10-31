@@ -29,8 +29,9 @@ public class Player extends Character {
      */
     @Override
     public void act() {
+        //For multiplayer
         //Look around the current room to remind us where we are
-        getCurrentRoom().printInfo();
+        //getCurrentRoom().printInfo();
 
         boolean commandProcessed = false;
         do {

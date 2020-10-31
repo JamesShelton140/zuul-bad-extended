@@ -5,6 +5,7 @@ package zuul;/*
 
 import zuul.io.userInterfaces.CommandLineInterface;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -33,7 +34,7 @@ public class Main {
      */
     private static String[] setLocale(String[] args) {
 
-        argsList = Arrays.asList(args.clone());
+        argsList = new ArrayList<String>(Arrays.asList(args));
 
         String language;
         String country;
