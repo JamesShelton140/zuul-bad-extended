@@ -24,7 +24,7 @@ public class Main {
         String language;
         String country;
 
-        if (args.length != 2) {
+        if (args.length < 2) {
             language = new String("en");
             country = new String("GB");
         } else {
