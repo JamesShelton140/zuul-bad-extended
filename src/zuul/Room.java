@@ -56,7 +56,7 @@ public class Room {
     public void setExits(String[] directions, Room[] rooms) {
         if (directions.length > rooms.length) {
             //not every exit leads to a room!
-            System.out.println(GameText.getString("exitNoRoomError"));
+            zuul.io.Out.println(GameText.getString("exitNoRoomError"));
             return;
         }
         for(int i = 0; i < directions.length; i++) {
@@ -100,7 +100,7 @@ public class Room {
     public Optional<Room> getExit(String exit) {
         //Check if exit exists
         if (!this.exits.containsKey(exit)) {
-            System.out.println(GameText.getString("noSuchExitError"));
+            zuul.io.Out.println(GameText.getString("noSuchExitError"));
             return Optional.empty();
         }
 
@@ -111,20 +111,20 @@ public class Room {
      * Print the description, exits, and items contained within this room.
      */
     public void printInfo() {
-        System.out.println("You are " + getDescription());
-        System.out.print(GameText.getString("exitsDisplay"));
-        System.out.print(String.join(" ", exits.keySet()));
-        System.out.println();
-        System.out.print(GameText.getString("itemsDisplay"));
+        zuul.io.Out.println("You are " + getDescription());
+        zuul.io.Out.print(GameText.getString("exitsDisplay"));
+        zuul.io.Out.print(String.join(" ", exits.keySet()));
+        zuul.io.Out.println();
+        zuul.io.Out.print(GameText.getString("itemsDisplay"));
         if (inventory != null) {
-            System.out.print(inventory);
+            zuul.io.Out.print(inventory);
         }
-        System.out.println();
-        System.out.print(GameText.getString("charactersDisplay"));
+        zuul.io.Out.println();
+        zuul.io.Out.print(GameText.getString("charactersDisplay"));
         if (characters != null && characters.size() != 0) {
-            System.out.println(characters.stream().map(Character::toString).collect(Collectors.joining(", ")));
+            zuul.io.Out.println(characters.stream().map(Character::toString).collect(Collectors.joining(", ")));
         }
-        System.out.println();
+        zuul.io.Out.println();
     }
 
     /**

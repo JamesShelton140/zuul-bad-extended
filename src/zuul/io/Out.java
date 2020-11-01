@@ -1,28 +1,54 @@
 package zuul.io;
 
+import zuul.GameInterface;
+
 public class Out {
 
     /**
-     * Print the given string to the screen.
+     * Print the given string
      * @param str
      */
     public static void print(String str) {
-        System.out.println(str);
+        GameInterface.get().print(str);
     }
 
     /**
-     * Print the given string to the screen with a line break following.
+     * Print object.toString()
+     * @param obj
+     */
+    public static void print(Object obj) {
+        print(obj.toString());
+    }
+
+    /**
+     * Print the given string with a line break following
      * @param str
      */
     public static void println(String str) {
         print(str);
+        println();
+    }
+
+    /**
+     * Print the given string with a line break following
+     * @param obj
+     */
+    public static void println(Object obj) {
+        print(obj);
+        println();
+    }
+
+    /**
+     * Print a line break by calling nextln()
+     */
+    public static void println() {
         nextln();
     }
 
     /**
-     * Moves to next line of output
+     * Print a line break
      */
-    private static void nextln() {
-        System.out.println();
+    public static void nextln() {
+        GameInterface.get().nextln();
     }
 }

@@ -1,9 +1,7 @@
 package zuul.commands;
 
+import zuul.*;
 import zuul.Character;
-import zuul.Command;
-import zuul.Game;
-import zuul.GameText;
 
 import java.util.ArrayList;
 
@@ -30,6 +28,7 @@ public class LookCommand extends Command {
      */
     @Override
     public boolean execute(zuul.Character character) {
+        GameInterface.get().update("help command");
         character.getCurrentRoom().printInfo();
         return true;
     }

@@ -85,7 +85,7 @@ public abstract class Command
      * print a success message if the command was called by a player
      */
 //    protected void printSuccess() {
-//        System.out.println(GameText.getString(commandWord + "Successful", new Object[]{item}));
+//        zuul.io.Out.println(GameText.getString(commandWord + "Successful", new Object[]{item}));
 //    }
 }
 

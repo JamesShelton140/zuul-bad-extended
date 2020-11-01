@@ -38,7 +38,7 @@ public class QuitCommand extends Command {
 
         if (hasModifiers()) {
             //Only quit if we're really sure
-            System.out.println(GameText.getString("quitHasModifiersError"));
+            zuul.io.Out.println(GameText.getString("quitHasModifiersError"));
             return false;
         } else {
             Game.getInstance().finish(); // signal that we want to quit

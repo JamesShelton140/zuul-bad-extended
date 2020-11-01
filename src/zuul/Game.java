@@ -67,10 +67,10 @@ public class Game {
 
         while (!finished) {
             map.forEachCharacter(Character::act);
-            userInterface.update();
+            userInterface.update("end of round");
         }
 
-        System.out.println(GameText.getString("goodBye"));
+        zuul.io.Out.println(GameText.getString("goodBye"));
     }
 
     // Getters and setters for class fields.

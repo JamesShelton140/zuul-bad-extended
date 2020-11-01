@@ -47,7 +47,7 @@ public class Parser
         String commandWord = null; //Initialise command word to null so "no input" will result in a null command.
         ArrayList<String> modifiers = new ArrayList<>();
 
-        System.out.print("> ");     // print prompt
+        zuul.io.Out.print("> ");     // print prompt
 
         inputLine = reader.nextLine();
 
@@ -72,7 +72,7 @@ public class Parser
         if (command.isPresent()) {
             return command.get();
         } else {
-            System.out.println(GameText.getString("unrecognisedCommandError"));
+            zuul.io.Out.println(GameText.getString("unrecognisedCommandError"));
             return getCommand();
         }
     }

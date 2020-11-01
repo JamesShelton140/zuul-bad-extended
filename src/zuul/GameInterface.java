@@ -3,7 +3,7 @@ package zuul;
 import zuul.io.userInterfaces.UserInterface;
 
 /**
- * "zuul.GameInteface" stores the active UserInterface.
+ * "zuul.GameInterface" stores the active UserInterface.
  * Such as: locale, user interface etc.
  *
  * @author Michael Kolling and David J. Barnes
