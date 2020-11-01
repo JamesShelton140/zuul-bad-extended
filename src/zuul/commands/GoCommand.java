@@ -22,7 +22,7 @@ public class GoCommand extends Command {
      * @return True if command executes successfully, false otherwise.
      */
     @Override
-    public boolean execute(Character character) {
+    public boolean commandLogic(Character character) {
 
         Optional<String> opDirection = getModifier(0);
 
@@ -49,7 +49,9 @@ public class GoCommand extends Command {
             nextRoom.addCharacter(character); //enter next room
             //nextRoom.printInfo(); //look around next room
             zuul.io.Out.println(GameText.getString("goSuccessful", new Object[]{direction}));
-            return true;
+            zuul.io.Out.println();
+//            return true;
+            return new LookCommand().execute(character);
         }
     }
 }

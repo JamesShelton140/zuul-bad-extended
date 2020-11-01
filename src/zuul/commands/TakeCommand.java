@@ -22,7 +22,7 @@ public class TakeCommand extends Command {
      * @return True if command executes successfully, false otherwise.
      */
     @Override
-    public boolean execute(zuul.Character character) {
+    public boolean commandLogic(zuul.Character character) {
 
         Optional<String> opItemName = getModifier(0);
 

@@ -30,7 +30,7 @@ public class QuitCommand extends Command {
      * @return True, if this command quits the game, false otherwise.
      */
     @Override
-    public boolean execute(zuul.Character character) {
+    public boolean commandLogic(zuul.Character character) {
         if(!(character instanceof Player)) {
             //Only players can quit the game
             return false;

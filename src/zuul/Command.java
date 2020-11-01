@@ -52,7 +52,17 @@ public abstract class Command
      * Execute the command.
      * @return whether the command executed successfully.
      */
-    public abstract boolean execute(zuul.Character character);
+    public boolean execute(zuul.Character character) {
+        GameInterface.get().update("command start"); //tell the interface that a command is starting
+        boolean result = commandLogic(character); //run the command logic
+        GameInterface.get().update("command end"); //tell the interface that a command has finished
+        return result;
+    }
+
+    /**
+     * The command logic to be executed
+     */
+    protected abstract boolean commandLogic(zuul.Character character);
 
     /**
      * @return Modifier number i

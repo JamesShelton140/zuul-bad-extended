@@ -27,7 +27,7 @@ public class LookCommand extends Command {
      * @param character
      */
     @Override
-    public boolean execute(zuul.Character character) {
+    public boolean commandLogic(zuul.Character character) {
         GameInterface.get().update("help command");
         character.getCurrentRoom().printInfo();
         return true;

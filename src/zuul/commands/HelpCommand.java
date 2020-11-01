@@ -30,7 +30,7 @@ public class HelpCommand extends Command {
      * @return True if command executes successfully, false otherwise.
      */
     @Override
-    public boolean execute(Character character) {
+    public boolean commandLogic(Character character) {
         GameInterface.get().update("help command");
 
         zuul.io.Out.println(GameText.getString("help_ln1"));
@@ -46,6 +46,8 @@ public class HelpCommand extends Command {
         );
         zuul.io.Out.println();
         GameInterface.get().update("finish command");
+
+        character.act(); //allow character to make another action
         return true;
     }
 }
