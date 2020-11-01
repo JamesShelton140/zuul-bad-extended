@@ -53,10 +53,17 @@ public abstract class Command
      * @return whether the command executed successfully.
      */
     public boolean execute(zuul.Character character) {
-        GameInterface.get().update("command start"); //tell the interface that a command is starting
+        GameInterface.get().update("command start " + commandWord); //tell the interface that a command is starting
         boolean result = commandLogic(character); //run the command logic
-        GameInterface.get().update("command end"); //tell the interface that a command has finished
+        GameInterface.get().update("command end " + commandWord); //tell the interface that a command has finished
         return result;
+    }
+
+    /**
+     *
+     */
+    protected void updateErr(String error) {
+        GameInterface.get().update("command error " + commandWord + " " + error);
     }
 
     /**
@@ -91,9 +98,9 @@ public abstract class Command
         return (modifiers.size() > i) && (modifiers.get(i) != null);
     }
 
-    /**
-     * print a success message if the command was called by a player
-     */
+//    /**
+//     * print a success message if the command was called by a player
+//     */
 //    protected void printSuccess() {
 //        zuul.io.Out.println(GameText.getString(commandWord + "Successful", new Object[]{item}));
 //    }

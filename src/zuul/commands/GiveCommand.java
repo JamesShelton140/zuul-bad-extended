@@ -26,6 +26,7 @@ public class GiveCommand extends Command {
 
         if (opItemName.isEmpty()) {
             // if there is no second word, we don't know what to give...
+            updateErr("noModifier item");
             zuul.io.Out.println(GameText.getString("giveNoItemError"));
             return false;
         }
@@ -34,6 +35,7 @@ public class GiveCommand extends Command {
 
         if (opWhom.isEmpty()) {
             // if there is no third word, we don't to whom to give it...
+            updateErr("noModifier target");
             zuul.io.Out.println(GameText.getString("giveNoCharacterError"));
             return false;
         }
@@ -48,6 +50,7 @@ public class GiveCommand extends Command {
 
         if (opRecipient.isEmpty()) {
             // cannot give it if the character is not here
+            updateErr("targetNotFound");
             zuul.io.Out.println(GameText.getString("giveCharacterNotInRoomError", new Object[]{whom}));
             return false;
         }
@@ -60,6 +63,7 @@ public class GiveCommand extends Command {
 
         if (opItem.isEmpty()) {
             //Item not held by character
+            updateErr("itemNotHeld");
             zuul.io.Out.println(GameText.getString("giveItemNotHeldError", new Object[]{itemName}));
             return false;
         }

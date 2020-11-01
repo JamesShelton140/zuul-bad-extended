@@ -28,6 +28,7 @@ public class GoCommand extends Command {
 
         if (opDirection.isEmpty()) {
             // if there is no modifier, we don't know where to go...
+            updateErr("noModifier");
             zuul.io.Out.println(GameText.getString("goHasNoModifiersError"));
             return false;
         }
@@ -38,6 +39,8 @@ public class GoCommand extends Command {
         Optional<Room> opNextRoom = character.getCurrentRoom().getExit(direction);
 
         if (opNextRoom.isEmpty()) {
+            //Cannot go in a direction if there is no exit
+            updateErr("noExit");
             zuul.io.Out.println(GameText.getString("goNoExitError"));
             return false;
         } else {

@@ -28,6 +28,7 @@ public class TakeCommand extends Command {
 
         if (opItemName.isEmpty()) {
             // if there is no second word, we don't know what to take...
+            updateErr("noModifier");
             zuul.io.Out.println(GameText.getString("takeNoModifiersError"));
             return false;
         }
@@ -38,6 +39,7 @@ public class TakeCommand extends Command {
 
         if (opItem.isEmpty()) {
             // The item is not in the room
+            updateErr("itemNotFound");
             zuul.io.Out.println(GameText.getString("takeItemNotInRoomError", new Object[]{itemName}));
             return false;
         }
@@ -47,6 +49,7 @@ public class TakeCommand extends Command {
 
         if (character.getInventory().getTotalWeight() + item.getWeight() > character.getInventory().getMAX_WEIGHT()) {
             // The player is carrying too much
+            updateErr("itemTooHeavy");
             zuul.io.Out.println(GameText.getString("takeItemTooHeavyError", new Object[]{itemName}));
             return false;
         }

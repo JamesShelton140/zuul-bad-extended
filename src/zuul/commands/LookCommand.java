@@ -28,8 +28,8 @@ public class LookCommand extends Command {
      */
     @Override
     public boolean commandLogic(zuul.Character character) {
-        GameInterface.get().update("help command");
         character.getCurrentRoom().printInfo();
+        character.act(); //allow character to perform another action
         return true;
     }
 }

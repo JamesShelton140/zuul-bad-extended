@@ -28,6 +28,7 @@ public class DropCommand extends Command {
 
         if (opItemName.isEmpty()) {
             // if there is no second word, we don't know what to drop...
+            updateErr("noModifier");
             zuul.io.Out.println(GameText.getString("dropHasNoModifiersError"));
             return false;
         }
@@ -39,6 +40,7 @@ public class DropCommand extends Command {
 
         if (opItem.isEmpty()) {
             //Item not held by character
+            updateErr("itemNotHeld");
             zuul.io.Out.println(GameText.getString("dropItemNotHeldError", new Object[]{itemName}));
             return false;
         }

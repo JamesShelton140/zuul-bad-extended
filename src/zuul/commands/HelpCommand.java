@@ -31,23 +31,19 @@ public class HelpCommand extends Command {
      */
     @Override
     public boolean commandLogic(Character character) {
-        GameInterface.get().update("help command");
-
         zuul.io.Out.println(GameText.getString("help_ln1"));
         zuul.io.Out.println(GameText.getString("help_ln2"));
         zuul.io.Out.println();
         zuul.io.Out.println(GameText.getString("helpCommandWordsDisplay"));
-//        zuul.io.Out.println("   go quit help");
 //        zuul.io.Out.println(Arrays.toString(Game.getInstance().getParser().getCommandWords().getValidCommands()));
+        //Get the command words from the CommandWords resource bundle for the current locale
         zuul.io.Out.println(GameText.getCommandWords().stream()
                 .map(key -> GameText.getString("CommandWordsBundle", key))
                 .sorted(Comparator.comparing(String::toString, GameText.getCollator())) //sort the command words alphabetically by locale.
                 .collect(Collectors.joining(", "))
         );
         zuul.io.Out.println();
-        GameInterface.get().update("finish command");
-
-        character.act(); //allow character to make another action
+        character.act(); //allow character to perform another action
         return true;
     }
 }

@@ -65,13 +65,13 @@ public class Parser
         tokenizer.close();  // Scanner cleanup
 
         // Try to create a command using the command word and modifiers
-        // "go", "quit", "help", "look", "take", "drop", "give"
         Optional<Command> command = commandFactory.getCommand(commandWord, modifiers);
 
         if (command.isPresent()) {
             return command.get();
         } else {
-            Out.println(GameText.getString("unrecognisedCommandError"));
+            GameInterface.get().update("parser error"); //update interface
+            Out.println(GameText.getString("unrecognisedCommandError")); //error message
             return getCommand(caller);
         }
     }
