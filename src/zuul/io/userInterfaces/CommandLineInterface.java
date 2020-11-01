@@ -35,8 +35,6 @@ public class CommandLineInterface implements UserInterface {
         if (reader == null) {
             reader = new Scanner(System.in);
         }
-        String line = reader.nextLine();
-//        reader.close();
-        return line;
+        return reader.nextLine();
     }
 }

@@ -1,9 +1,7 @@
 package zuul.characters;
 
+import zuul.*;
 import zuul.Character;
-import zuul.Command;
-import zuul.Game;
-import zuul.Room;
 
 public class Player extends Character {
     /**
