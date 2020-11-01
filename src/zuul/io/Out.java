@@ -49,6 +49,6 @@ public class Out {
      * Print a line break
      */
     public static void nextln() {
-        GameInterface.get().nextln();
+        GameInterface.get().printNextln();
     }
 }

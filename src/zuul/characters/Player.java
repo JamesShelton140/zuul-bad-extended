@@ -35,8 +35,7 @@ public class Player extends Character {
 
         boolean commandProcessed = false;
         do {
-            zuul.io.Out.print(getName() + " ");
-            Command command = Game.getInstance().getParser().getCommand();
+            Command command = Game.getInstance().getParser().getCommand(getName());
             commandProcessed = processCommand(command);
         } while (!commandProcessed);
     }

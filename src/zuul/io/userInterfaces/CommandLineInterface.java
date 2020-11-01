@@ -3,8 +3,11 @@ package zuul.io.userInterfaces;
 import zuul.Game;
 import zuul.GameInterface;
 
+import java.util.Scanner;
+
 public class CommandLineInterface implements UserInterface {
 
+    private Scanner reader = null;
 
     public static void main(String[] args) {
         GameInterface.set(new CommandLineInterface());
@@ -23,7 +26,17 @@ public class CommandLineInterface implements UserInterface {
     }
 
     @Override
-    public void nextln() {
+    public void printNextln() {
         System.out.println();
+    }
+
+    @Override
+    public String getNextLine() {
+        if (reader == null) {
+            reader = new Scanner(System.in);
+        }
+        String line = reader.nextLine();
+//        reader.close();
+        return line;
     }
 }
