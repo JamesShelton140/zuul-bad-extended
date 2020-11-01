@@ -2,6 +2,7 @@ package zuul;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Optional;
 
 public abstract class Character {
 
@@ -9,6 +10,7 @@ public abstract class Character {
     private String name;
     private Room currentRoom;
     private Inventory inventory;
+    private Command runningCommand;
 
 
     /**
@@ -19,6 +21,7 @@ public abstract class Character {
         this.currentRoom = startingRoom;
         startingRoom.addCharacter(this);
         this.inventory = new Inventory();
+        this.runningCommand = null;
     }
 
     /**
@@ -62,6 +65,17 @@ public abstract class Character {
     }
 
     /**
+     * @return the current command being executed
+     */
+    public Optional<Command> getRunningCommand() {
+        if (this.runningCommand == null) {
+            return Optional.empty();
+        } else {
+            return Optional.of(this.runningCommand);
+        }
+    }
+
+    /**
      * Create string from the character
      * @return The character's name.
      */
@@ -74,11 +88,7 @@ public abstract class Character {
      * @return
      */
     public boolean hasInventory() {
-        if(inventory == null) {
-            return false;
-        } else {
-            return true;
-        }
+        return inventory != null;
     }
 
     /**
@@ -100,6 +110,9 @@ public abstract class Character {
      * @return true If the command executed properly, false otherwise.
      */
     protected boolean processCommand(Command command) {
-        return command.execute(this);
+        this.runningCommand = command; //set the current running command
+        boolean result = command.execute(this); //execute the command
+        this.runningCommand = null;
+        return result;
     }
 }
