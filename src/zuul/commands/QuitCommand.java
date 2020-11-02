@@ -30,15 +30,17 @@ public class QuitCommand extends Command {
      * @return True, if this command quits the game, false otherwise.
      */
     @Override
-    public boolean execute(zuul.Character character) {
+    public boolean commandLogic(zuul.Character character) {
         if(!(character instanceof Player)) {
             //Only players can quit the game
+            updateErr("notPlayer");
             return false;
         }
 
         if (hasModifiers()) {
             //Only quit if we're really sure
-            System.out.println(GameText.getString("quitHasModifiersError"));
+            updateErr("hasModifier");
+            zuul.io.Out.println(GameText.getString("quitHasModifiersError"));
             return false;
         } else {
             Game.getInstance().finish(); // signal that we want to quit

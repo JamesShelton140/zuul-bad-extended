@@ -22,13 +22,14 @@ public class TakeCommand extends Command {
      * @return True if command executes successfully, false otherwise.
      */
     @Override
-    public boolean execute(zuul.Character character) {
+    public boolean commandLogic(zuul.Character character) {
 
         Optional<String> opItemName = getModifier(0);
 
         if (opItemName.isEmpty()) {
             // if there is no second word, we don't know what to take...
-            System.out.println(GameText.getString("takeNoModifiersError"));
+            updateErr("noModifier");
+            zuul.io.Out.println(GameText.getString("takeNoModifiersError"));
             return false;
         }
 
@@ -38,7 +39,8 @@ public class TakeCommand extends Command {
 
         if (opItem.isEmpty()) {
             // The item is not in the room
-            System.out.println(GameText.getString("takeItemNotInRoomError", new Object[]{itemName}));
+            updateErr("itemNotFound");
+            zuul.io.Out.println(GameText.getString("takeItemNotInRoomError", new Object[]{itemName}));
             return false;
         }
 
@@ -47,7 +49,8 @@ public class TakeCommand extends Command {
 
         if (character.getInventory().getTotalWeight() + item.getWeight() > character.getInventory().getMAX_WEIGHT()) {
             // The player is carrying too much
-            System.out.println(GameText.getString("takeItemTooHeavyError", new Object[]{itemName}));
+            updateErr("itemTooHeavy");
+            zuul.io.Out.println(GameText.getString("takeItemTooHeavyError", new Object[]{itemName}));
             return false;
         }
 
@@ -57,7 +60,7 @@ public class TakeCommand extends Command {
 
         //if (character instanceof Player) {
             //Tell player that the command was successful
-        System.out.println(GameText.getString("takeSuccessful", new Object[]{itemName}));
+        zuul.io.Out.println(GameText.getString("takeSuccessful", new Object[]{itemName}));
         //}
 
         return true;

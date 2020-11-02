@@ -22,13 +22,14 @@ public class DropCommand extends Command {
      * @return True if command executes successfully, false otherwise.
      */
     @Override
-    public boolean execute(zuul.Character character){
+    public boolean commandLogic(zuul.Character character){
 
         Optional<String> opItemName = getModifier(0);
 
         if (opItemName.isEmpty()) {
             // if there is no second word, we don't know what to drop...
-            System.out.println(GameText.getString("dropHasNoModifiersError"));
+            updateErr("noModifier");
+            zuul.io.Out.println(GameText.getString("dropHasNoModifiersError"));
             return false;
         }
 
@@ -39,7 +40,8 @@ public class DropCommand extends Command {
 
         if (opItem.isEmpty()) {
             //Item not held by character
-            System.out.println(GameText.getString("dropItemNotHeldError", new Object[]{itemName}));
+            updateErr("itemNotHeld");
+            zuul.io.Out.println(GameText.getString("dropItemNotHeldError", new Object[]{itemName}));
             return false;
         }
 
@@ -51,7 +53,7 @@ public class DropCommand extends Command {
 
         //if (character instanceof Player) {
             //Tell player that the command was successful
-        System.out.println(GameText.getString("dropSuccessful", new Object[]{item}));
+        zuul.io.Out.println(GameText.getString("dropSuccessful", new Object[]{item}));
         //}
 
         return true;

@@ -1,5 +1,7 @@
 package zuul;
 
+import zuul.io.Out;
+
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
@@ -23,7 +25,6 @@ import java.util.Scanner;
 public class Parser 
 {
     private CommandWords commands;  // holds all valid command words
-    private Scanner reader;         // source of command input
     CommandFactory commandFactory;  // creates commands from input
 
     /**
@@ -33,7 +34,6 @@ public class Parser
     {
         commandFactory = new CommandFactory();
         commands = new CommandWords();
-        reader = new Scanner(System.in);
     }
 
     /**
@@ -41,15 +41,14 @@ public class Parser
      * Only returns if a valid zuul.commands is parsed. Else an error message is printed and getCommand() is called recursively.
      * @return The next valid command from the user.
      */
-    public Command getCommand()
+    public Command getCommand(String caller)
     {
-        String inputLine;   // will hold the full input line
         String commandWord = null; //Initialise command word to null so "no input" will result in a null command.
         ArrayList<String> modifiers = new ArrayList<>();
 
-        System.out.print("> ");     // print prompt
+        Out.print(caller + " > ");     // print prompt
 
-        inputLine = reader.nextLine();
+        String inputLine = zuul.io.In.nextLine();
 
         Scanner tokenizer = new Scanner(inputLine);
 
@@ -66,15 +65,23 @@ public class Parser
         tokenizer.close();  // Scanner cleanup
 
         // Try to create a command using the command word and modifiers
-        // "go", "quit", "help", "look", "take", "drop", "give"
         Optional<Command> command = commandFactory.getCommand(commandWord, modifiers);
 
         if (command.isPresent()) {
             return command.get();
         } else {
-            System.out.println(GameText.getString("unrecognisedCommandError"));
-            return getCommand();
+            GameInterface.get().update("parser error"); //update interface
+            Out.println(GameText.getString("unrecognisedCommandError")); //error message
+            return getCommand(caller);
         }
+    }
+
+    /**
+     * getCommand to retrieve command without explicit calling character.
+     * @return
+     */
+    public Command getCommand() {
+        return getCommand("");
     }
 
     /**

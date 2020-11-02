@@ -11,8 +11,7 @@ package zuul;
  * @version 2006.03.30
  */
 
-public class CommandWords
-{
+public class CommandWords {
     // a constant array that holds all valid command words
     private static final String[] validCommands = {
         "go", "quit", "help", "look", "take", "drop", "give"

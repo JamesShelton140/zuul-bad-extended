@@ -1,6 +1,8 @@
 package zuul;
 
 import zuul.characters.Player;
+import zuul.io.userInterfaces.CommandLineInterface;
+import zuul.io.userInterfaces.UserInterface;
 
 import java.util.ArrayList;
 
@@ -24,18 +26,18 @@ public class Game {
 
     //Static instance of zuul.Game class to ensure a single instance is active. (Singleton pattern)
     private static Game gameInstance;
-    private final Map map;
 
     //zuul.Game fields
+    private final UserInterface userInterface;
+    private final Map map;
     private Parser parser;
-    private Room startingRoom;
-    private ArrayList<Character> characters = new ArrayList<>();
     private Boolean finished = false;
 
     /**
      * Create the game and initialise its internal map.
      */
     private Game() {
+        userInterface = GameInterface.get();
         map = new ZuulMap();
         parser = new Parser();
     }
@@ -65,9 +67,10 @@ public class Game {
 
         while (!finished) {
             map.forEachCharacter(Character::act);
+            userInterface.update("end of round");
         }
 
-        System.out.println(GameText.getString("goodBye"));
+        zuul.io.Out.println(GameText.getString("goodBye"));
     }
 
     // Getters and setters for class fields.

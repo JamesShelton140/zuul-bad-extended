@@ -22,13 +22,14 @@ public class GoCommand extends Command {
      * @return True if command executes successfully, false otherwise.
      */
     @Override
-    public boolean execute(Character character) {
+    public boolean commandLogic(Character character) {
 
         Optional<String> opDirection = getModifier(0);
 
         if (opDirection.isEmpty()) {
             // if there is no modifier, we don't know where to go...
-            System.out.println(GameText.getString("goHasNoModifiersError"));
+            updateErr("noModifier");
+            zuul.io.Out.println(GameText.getString("goHasNoModifiersError"));
             return false;
         }
 
@@ -38,7 +39,9 @@ public class GoCommand extends Command {
         Optional<Room> opNextRoom = character.getCurrentRoom().getExit(direction);
 
         if (opNextRoom.isEmpty()) {
-            System.out.println(GameText.getString("goNoExitError"));
+            //Cannot go in a direction if there is no exit
+            updateErr("noExit");
+            zuul.io.Out.println(GameText.getString("goNoExitError"));
             return false;
         } else {
             //Exit room exists so unwrap it
@@ -48,8 +51,10 @@ public class GoCommand extends Command {
             character.setCurrentRoom(nextRoom); //enter next room
             nextRoom.addCharacter(character); //enter next room
             //nextRoom.printInfo(); //look around next room
-            System.out.println(GameText.getString("goSuccessful", new Object[]{direction}));
-            return true;
+            zuul.io.Out.println(GameText.getString("goSuccessful", new Object[]{direction}));
+            zuul.io.Out.println();
+//            return true;
+            return new LookCommand().execute(character);
         }
     }
 }

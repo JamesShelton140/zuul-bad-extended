@@ -1,9 +1,7 @@
 package zuul.characters;
 
+import zuul.*;
 import zuul.Character;
-import zuul.Command;
-import zuul.Game;
-import zuul.Room;
 
 public class Player extends Character {
     /**
@@ -29,13 +27,13 @@ public class Player extends Character {
      */
     @Override
     public void act() {
+        //For multiplayer
         //Look around the current room to remind us where we are
-        getCurrentRoom().printInfo();
+        //getCurrentRoom().printInfo();
 
         boolean commandProcessed = false;
         do {
-            System.out.print(getName() + " ");
-            Command command = Game.getInstance().getParser().getCommand();
+            Command command = Game.getInstance().getParser().getCommand(getName());
             commandProcessed = processCommand(command);
         } while (!commandProcessed);
     }
