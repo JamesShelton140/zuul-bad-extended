@@ -40,6 +40,19 @@ public abstract class Character {
     }
 
     /**
+     * Moves this Character into the specified {@link Room}.
+     *
+     * @param nextRoom  the Room to move this Character to
+     */
+    public void moveRoom(Room nextRoom) {
+        //move out of current room
+        this.currentRoom.removeCharacter(this);
+        //move into next room
+        setCurrentRoom(nextRoom);
+        nextRoom.addCharacter(this);
+    }
+
+    /**
      * Check if this character is equal to the given object.
      * @param o The object to compare to this.
      * @return True if o is a Character and o.name == this.name.
