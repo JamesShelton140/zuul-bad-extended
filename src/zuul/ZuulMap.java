@@ -3,10 +3,23 @@ package zuul;
 import zuul.characters.Player;
 
 import java.util.Arrays;
-import java.util.HashSet;
 
+/**
+ * World of Zuul standard {@link Map}.
+ * <p>
+ * This map has five {@link Room Rooms} (outside, theatre, pub, lab, and office) and one {@link Player} (player1)
+ * <p>
+ * Character "player1" starts in the room "outside".
+ * <p>
+ * Room "outside" contains a single item "notebook".
+ *
+ * @author Timothy Shelton
+ */
 public class ZuulMap extends Map {
 
+    /**
+     * Constructor
+     */
     public ZuulMap() {
         super();
         createRooms();
@@ -14,7 +27,7 @@ public class ZuulMap extends Map {
     }
 
     /**
-     * Create all the characters
+     * Creates a single {@link Player} with name "player1" in the {@link Room} {@code defaultStartingRoom}.
      */
     @Override
     protected void createCharacters() {
@@ -24,32 +37,51 @@ public class ZuulMap extends Map {
     }
 
     /**
-     * Create all the rooms and link their exits together.
+     * Creates the {@link Room Rooms} outside, theatre, pub, lab, and office and
+     * instantiates exits to create the following map:
+     *
+     * <table>
+     *     <tr> <td>pub</td>    --  <td>outside</td>    --  <td>theatre</td>    </tr>
+     *     <tr> <td></td>   <td></td>   <td>|</td>   </tr>
+     *     <tr> <td></td>   <td></td>   <td>lab</td>    --  <td>office</td>  </tr>
+     * </table>
+     *
+     * Adds an item "notebook" to outside.
+     * <p>
+     * Sets {@code defaultStartingRoom} to be outside.
      */
     @Override
     protected void createRooms() {
 
         Room outside, theatre, pub, lab, office;
 
-        // create the rooms
+        //Instantiate room names and descriptions
         outside = new Room("outside", GameText.getString("outside"));
         theatre = new Room("theatre", GameText.getString("theatre"));
         pub = new Room("pub", GameText.getString("pub"));
         lab = new Room("lab", GameText.getString("lab"));
         office = new Room("office", GameText.getString("office"));
 
-        // initialise room exits //zuul.Room north, zuul.Room east, zuul.Room south, zuul.Room west)
+        // initialise room exits and items
+        //outside
         outside.setExits(new String[]{GameText.getString("east"), GameText.getString("south"), GameText.getString("west")},
                 new Room[]{theatre, lab, pub});
         outside.getInventory().addItem(new Item(GameText.getString("notebook"), 2));
+        //theatre
         theatre.setExits(new String[]{GameText.getString("west")}, new Room[]{outside});
+        //pub
         pub.setExits(new String[]{GameText.getString("east")}, new Room[]{outside});
+        //lab
         lab.setExits(new String[]{GameText.getString("north"), GameText.getString("east")},
                 new Room[]{outside, office});
+        //office
         office.setExits(new String[]{GameText.getString("west")}, new Room[]{lab});
 
-        setDefaultStartingRoom(outside);  // start game outside
-        Arrays.stream(new Room[]{outside, theatre, pub, lab, office}).forEach(this::addRoom); //Add all rooms to list
+        //Start game outside
+        setDefaultStartingRoom(outside);
+
+        //Add all rooms to this map
+        Arrays.stream(new Room[]{outside, theatre, pub, lab, office}).forEach(this::addRoom);
     }
 
     @Override
@@ -60,6 +92,6 @@ public class ZuulMap extends Map {
         zuul.io.Out.println(GameText.getString("welcome_ln3",
                 new Object[] {GameText.getString("CommandWordsBundle", "help")}));
         zuul.io.Out.println();
-        //getDefaultStartingRoom().printInfo(); //Print info for default starting room (where player starts)
+        getDefaultStartingRoom().printInfo(); //Print info for default starting room (where player starts)
     }
 }
