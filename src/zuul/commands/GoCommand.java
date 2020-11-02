@@ -16,8 +16,10 @@ public class GoCommand extends Command {
     }
 
     /**
-     * Execute the command. Try to move the selected character to one direction. If there is an exit, enter the new room,
-     * otherwise print an error message.
+     * Ties to move the specified character to a new {@link Room} in one direction.
+     *
+     * If there is an exit, enters the new room, otherwise prints an error message.
+     *
      * @param character The character object to execute the command on.
      * @return True if command executes successfully, false otherwise.
      */
@@ -47,14 +49,13 @@ public class GoCommand extends Command {
             //Exit room exists so unwrap it
             Room nextRoom = opNextRoom.get();
 
-            character.getCurrentRoom().removeCharacter(character);  //leave current room
-            character.setCurrentRoom(nextRoom); //enter next room
-            nextRoom.addCharacter(character); //enter next room
-            //nextRoom.printInfo(); //look around next room
+            character.moveRoom(nextRoom); //Move character to next room
+
             zuul.io.Out.println(GameText.getString("goSuccessful", new Object[]{direction}));
             zuul.io.Out.println();
-//            return true;
-            return new LookCommand().execute(character);
+
+            nextRoom.printInfo(); //look around next room
+            return true;
         }
     }
 }

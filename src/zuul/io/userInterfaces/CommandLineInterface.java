@@ -7,7 +7,10 @@ import java.util.Scanner;
 
 public class CommandLineInterface implements UserInterface {
 
-    private Scanner reader = null;
+    /**
+     * The input scanner for all user input.
+     */
+    private Scanner reader = new Scanner(System.in);;
 
     public static void main(String[] args) {
         GameInterface.set(new CommandLineInterface());
@@ -32,9 +35,6 @@ public class CommandLineInterface implements UserInterface {
 
     @Override
     public String getNextLine() {
-        if (reader == null) {
-            reader = new Scanner(System.in);
-        }
         return reader.nextLine();
     }
 }

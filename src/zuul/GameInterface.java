@@ -3,16 +3,16 @@ package zuul;
 import zuul.io.userInterfaces.UserInterface;
 
 /**
- * "zuul.GameInterface" stores the active UserInterface.
- * Such as: locale, user interface etc.
+ * Enables static access to the active UserInterface.
+ * For example: {@link zuul.io.userInterfaces.CommandLineInterface CommandLineInterface}
  *
- * @author Michael Kolling and David J. Barnes
- * @version 2006.03.30
+ * @author Timothy Shelton
+ * @version 02/11/2020
  */
 
 public class GameInterface {
     /**
-     * User interface fields
+     * The currently active user interface.
      */
     private static UserInterface userInterface;
 
