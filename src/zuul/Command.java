@@ -4,105 +4,126 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 /**
- * This class is part of the "World of Zuul" application. 
- * "World of Zuul" is a very simple, text based adventure game.  
- *
+ * A Command for the "World of Zuul" application.
  * This class holds information about a command that was issued by the user.
- * A command currently consists of two strings: a command word and a second
- * word (for example, if the command was "take map", then the two strings
- * obviously are "take" and "map").
- * 
+ * A command consists of two parts: a command word and a list of modifier words
+ * (for example, if the user input was "take map", then the command state would be
+ *  {@code commandWord = "take"} and {@code modifiers = {"map"}}).
+ * <p>
  * The way this is used is: Commands are already checked for being valid
  * command words. If the user entered an invalid command (a word that is not
- * known) then the command word is <null>.
- *
- * If the command had only one word, then the second word is <null>.
+ * known) then then no command word should be created.
+ * <p>
+ * If the command does not require modifiers then modifiers can be null.
  * 
  * @author  Michael Kolling and David J. Barnes
- * @version 2006.03.30
+ * @author Timothy Shelton
  */
 
 public abstract class Command
 {
-    private String commandWord;
-    private ArrayList<String> modifiers;
+    /**
+     * The first word of a user-entered command
+     */
+    private final String COMMAND_WORD;
 
     /**
-     * Create a command object. zuul.Command word must be supplied but modifiers may be null.
-     * @param commandWord The first word of the command. Null if the command
-     *                    was not recognised.
-     * @param modifiers The array of modifiers to the command word. Empty if no modifiers input.
+     * The list of all other words of a user-entered command.
+     */
+    private final ArrayList<String> MODIFIERS;
+
+    /**
+     * Creates a command object. Command word must be supplied but modifiers may be null.
+     *
+     * @param commandWord  the first word of the command, not null
+     * @param modifiers  the array of modifier words to the command word. Empty or null if no modifiers input.
      */
     public Command(String commandWord, ArrayList<String> modifiers) {
-        commandWord = commandWord;
-        this.modifiers = modifiers;
+        this.COMMAND_WORD = commandWord;
+        this.MODIFIERS = modifiers;
 
     }
 
     /**
-     * Create a command object. zuul.Command word must be supplied. Sets modifiers == null.
-     * @param commandWord  The first word of the command. Null if the command
-     *                     was not recognised.
+     * Creates a command object with only Command word supplied.
+     * <p>
+     * Sets modifiers to an empty list.
+     *
+     * @param commandWord  the first word of the command, not null
      */
     public Command(String commandWord) {
         this(commandWord, new ArrayList<String>());
     }
 
     /**
-     * Execute the command.
-     * @return whether the command executed successfully.
+     * Executes this command on the specified {@link Character}.
+     * <p>
+     * Informs the {@link GameInterface} that a command has started before running the command logic of this command.
+     * <p>
+     * Informs the {@link GameInterface} that a command has ended after running the command logic of this command.
+     *
+     * @param character  the character that is acting on this command, not null
+     * @return true if the command executed successfully, false otherwise
      */
     public boolean execute(zuul.Character character) {
-        GameInterface.get().update("command start " + commandWord); //tell the interface that a command is starting
+        GameInterface.get().update("command start " + COMMAND_WORD); //tell the interface that a command is starting
         boolean result = commandLogic(character); //run the command logic
-        GameInterface.get().update("command end " + commandWord); //tell the interface that a command has finished
+        GameInterface.get().update("command end " + COMMAND_WORD); //tell the interface that a command has finished
         return result;
     }
 
     /**
+     * Informs the {@link GameInterface} that an error has occurred during the executing of this command.
+     * <p>
+     * Includes the commandWord of this command and the specified specific error message.
      *
+     * @param error  the specific error message, not null
      */
     protected void updateErr(String error) {
-        GameInterface.get().update("command error " + commandWord + " " + error);
+        GameInterface.get().update("command error " + COMMAND_WORD + " " + error);
     }
 
     /**
-     * The command logic to be executed
+     * The command logic of this command.
+     * This is run when {@link #execute(Character)} is called.
+     *
+     * @param character  the character that is acting on this command, not null
+     * @return true if the command logic completes successfully, false otherwise
      */
     protected abstract boolean commandLogic(zuul.Character character);
 
     /**
-     * @return Modifier number i
+     * Gets the modifier word in the specified index of {@link #MODIFIERS}.
+     * Can handle indexes outside of the size of MODIFIERS of this command.
+     *
+     * @param i  the index to check for a modifier word
+     * @return an Optional containing the modifier in the specified index if it exists, empty Optional otherwise
      */
     public Optional<String> getModifier(int i) {
         if(hasModifier(i)) {
-            return Optional.of(modifiers.get(i));
+            return Optional.of(MODIFIERS.get(i));
         } else {
             return Optional.empty();
         }
     }
 
     /**
+     * Indicates if this command has at least one modifier word in {@link #MODIFIERS}.
+     *
      * @return true if command has at least one modifier word, false otherwise
      */
     public boolean hasModifiers() {
-        return (modifiers != null) && (modifiers.size() != 0);
+        return (MODIFIERS != null) && (MODIFIERS.size() != 0);
     }
 
     /**
-     * Check if a non-null modifier exists in index i.
-     * @param i The index to check.
-     * @return True if modifiers has an index i and a non-null modifier exists in that index, false otherwise.
+     * Indicates if this command has a non-null modifier in the specified index of {@link #MODIFIERS}.
+     *
+     * @param i the index to check
+     * @return true if MODIFIERS has an index i and a non-null modifier word exists in that index, false otherwise.
      */
     public boolean hasModifier(int i) {
-        return (modifiers.size() > i) && (modifiers.get(i) != null);
+        return (MODIFIERS.size() > i) && (MODIFIERS.get(i) != null);
     }
-
-//    /**
-//     * print a success message if the command was called by a player
-//     */
-//    protected void printSuccess() {
-//        zuul.io.Out.println(GameText.getString(commandWord + "Successful", new Object[]{item}));
-//    }
 }
 
