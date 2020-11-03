@@ -23,7 +23,15 @@ import java.util.stream.Collectors;
  * @author Timothy Shelton
  */
 public class Room {
+
+    /**
+     * The name of this Room.
+     */
     private final String name;
+
+    /**
+     * The description of this Room.
+     */
     private String description;
 
     /**
