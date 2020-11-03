@@ -45,9 +45,9 @@ public class ZuulMap extends Map {
      * instantiates exits to create the following map:
      *
      * <table>
-     *     <tr> <td>pub</td>    --  <td>outside</td>    --  <td>theatre</td>    </tr>
+     *     <tr> <td>pub</td>    <td>--</td>  <td>outside</td>    <td>--</td>  <td>theatre</td>    </tr>
      *     <tr> <td></td>   <td></td>   <td>|</td>   </tr>
-     *     <tr> <td></td>   <td></td>   <td>lab</td>    --  <td>office</td>  </tr>
+     *     <tr> <td></td>   <td></td>   <td>lab</td>    <td>--</td>  <td>office</td>  </tr>
      * </table>
      *
      * Adds an item "notebook" to outside.
