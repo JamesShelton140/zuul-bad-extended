@@ -4,22 +4,35 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import zuul.*;
-import zuul.characters.Player;
 
+/**
+ * A Take {@link Command} for the "World of Zuul" application.
+ * This command takes an {@link Item} from a {@link zuul.Room} {@link Inventory}.
+ * <p>
+ * This command takes a single modifier word:
+ * <li>
+ *     The name of the item to be taken.
+ * </li>
+ *
+ * @author Timothy Shelton
+ */
 public class TakeCommand extends Command {
 
     /**
      * Constructor
+     *
+     * Initialises a {@link Command} with locale-dependent command word of the key "take".
      */
     public TakeCommand(ArrayList<String> modifiers) {
         super(GameText.getString("CommandWordsBundle", "take"), modifiers);
     }
 
     /**
-     * Execute the command. Try to take an item from the current room, otherwise print an error
-     * message.
-     * @param character The character that is executing the command.
-     * @return True if command executes successfully, false otherwise.
+     * Tries to take the item whose name is specified as the first modifier word of this {@link Command}
+     * from the {@link Inventory} of the current {@link Room} of the specified {@link zuul.Character}.
+     *
+     * @param character the Character that is trying to take an item
+     * @return true if item is taken successfully, false otherwise
      */
     @Override
     public boolean commandLogic(zuul.Character character) {
@@ -58,10 +71,8 @@ public class TakeCommand extends Command {
         character.getCurrentRoom().getInventory().removeItem(item); //Remove item from room
         character.getInventory().addItem(item); //Give item to player
 
-        //if (character instanceof Player) {
-            //Tell player that the command was successful
+        //tell the player the command was successful
         zuul.io.Out.println(GameText.getString("takeSuccessful", new Object[]{itemName}));
-        //}
 
         return true;
     }

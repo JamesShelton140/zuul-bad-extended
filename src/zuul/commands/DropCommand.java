@@ -1,25 +1,38 @@
 package zuul.commands;
 
 import zuul.*;
-import zuul.Character;
-import zuul.characters.Player;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ * A Drop {@link Command} for the "World of Zuul" application.
+ * This command drops an {@link Item} from a {@link zuul.Character} {@link Inventory}.
+ * <p>
+ * This command takes a single modifier word:
+ * <li>
+ *     The name of the item to be dropped.
+ * </li>
+ *
+ * @author Timothy Shelton
+ */
 public class DropCommand extends Command {
 
     /**
      * Constructor
+     *
+     * Initialises a {@link Command} with locale-dependent command word of the key "drop".
      */
     public DropCommand(ArrayList<String> modifiers) {
         super(GameText.getString("CommandWordsBundle","drop"), modifiers);
     }
 
     /**
-     * Execute the command. Try to drop an item, otherwise print an error message.
-     * @param character The character object to modify.
-     * @return True if command executes successfully, false otherwise.
+     * Tries to drop the item whose name is specified as the first modifier word of this {@link Command}
+     * from the specified {@link zuul.Character}.
+     *
+     * @param character the Character that is trying to drop an item
+     * @return true if item is dropped successfully, false otherwise
      */
     @Override
     public boolean commandLogic(zuul.Character character){
@@ -51,10 +64,8 @@ public class DropCommand extends Command {
         character.getInventory().removeItem(item); //remove item from player
         character.getCurrentRoom().getInventory().addItem(item); //add item to room
 
-        //if (character instanceof Player) {
-            //Tell player that the command was successful
+        //tell the player the command was successful
         zuul.io.Out.println(GameText.getString("dropSuccessful", new Object[]{item}));
-        //}
 
         return true;
     }

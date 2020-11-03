@@ -6,22 +6,44 @@ import zuul.Character;
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ * A Give {@link Command} for the "World of Zuul" application.
+ * This command gives an {@link Item} from a {@link zuul.Character} {@link Inventory} to another Character Inventory.
+ * <p>
+ * This command takes two modifier words:
+ * <ul>
+ *     <li>
+ *         The name of the Item to be given, and
+ *     </li>
+ *     <li>
+ *         The name of the Character to give the item to.
+ *     </li>
+ * </ul>
+ *
+ * @author Timothy Shelton
+ */
 public class GiveCommand extends Command {
 
     /**
      * Constructor
+     *
+     * Initialises a {@link Command} with locale-dependent command word of the key "give".
      */
     public GiveCommand(ArrayList<String> modifiers) {
         super(GameText.getString("CommandWordsBundle", "give"), modifiers);
     }
 
     /**
-     * Execute the command. Try to give an item, otherwise print an error message.
-     * @param character The game object to modify.
-     * @return True if command executes successfully, false otherwise.
+     * Tries to give the item whose name is specified as the first modifier word of this {@link Command},
+     * from the specified {@link zuul.Character},
+     * to the Character specified as the second modifier word of this Command.
+     *
+     * @param character the Character that is trying to give an item
+     * @return true if item is given successfully, false otherwise
      */
     @Override
     public boolean commandLogic(zuul.Character character) {
+
         Optional<String> opItemName = getModifier(0);
 
         if (opItemName.isEmpty()) {
@@ -74,7 +96,10 @@ public class GiveCommand extends Command {
 
         character.getInventory().removeItem(item); //remove the item from the current character
         recipient.getInventory().addItem(item);  //give item to new character
+
+        //tell the player the command was successful
         zuul.io.Out.println(GameText.getString("giveSuccessful", new Object[]{recipient.getName(), item}));
+
         return true;
     }
 

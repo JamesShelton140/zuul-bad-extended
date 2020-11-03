@@ -6,22 +6,34 @@ import zuul.Character;
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ * A Go {@link Command} for the "World of Zuul" application.
+ * This command moves a {@link Character} to a {@link Room} connected to its current room by an exit.
+ * <p>
+ * This command takes a single modifier word:
+ * <li>
+ *     The direction of the exit.
+ * </li>
+ *
+ * @author Timothy Shelton
+ */
 public class GoCommand extends Command {
 
     /**
      * Constructor
+     *
+     * Initialises a {@link Command} with locale-dependent command word of the key "go".
      */
     public GoCommand(ArrayList<String> modifiers) {
         super(GameText.getString("CommandWordsBundle", "go"), modifiers);
     }
 
     /**
-     * Ties to move the specified character to a new {@link Room} in one direction.
+     * Tries to move the specified {@link Character} to a new {@link Room} linked to the character's current room
+     * by the exit in the direction specified as the first modifier word of this {@link Command}.
      *
-     * If there is an exit, enters the new room, otherwise prints an error message.
-     *
-     * @param character The character object to execute the command on.
-     * @return True if command executes successfully, false otherwise.
+     * @param character the character that is trying to move
+     * @return true if the character is moved successfully, false otherwise.
      */
     @Override
     public boolean commandLogic(Character character) {
@@ -51,10 +63,11 @@ public class GoCommand extends Command {
 
             character.moveRoom(nextRoom); //Move character to next room
 
+            //tell the player the command was successful
             zuul.io.Out.println(GameText.getString("goSuccessful", new Object[]{direction}));
             zuul.io.Out.println();
 
-            nextRoom.printInfo(); //look around next room
+            nextRoom.printInfo(); //look around the new room
             return true;
         }
     }

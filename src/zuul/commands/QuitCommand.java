@@ -7,27 +7,40 @@ import zuul.characters.Player;
 
 import java.util.ArrayList;
 
+/**
+ * A Quit {@link Command} for the "World of Zuul" application.
+ * This command quits the application.
+ * <p>
+ * This command takes no modifier words.
+ *
+ * @author Timothy Shelton
+ */
 public class QuitCommand extends Command {
 
     /**
-     * Constructor
+     * Constructor without modifiers.
+     *
+     * Initialises a {@link Command} with locale-dependent command word of the key "quit".
      */
     public QuitCommand() {
         super(GameText.getString("CommandWordsBundle", "quit"));
     }
 
     /**
-     * Constructor
+     * Constructor with modifiers.
+     *
+     * Initialises a {@link Command} with locale-dependent command word of the key "quit".
      */
     public QuitCommand(ArrayList<String> modifiers) {
         super(GameText.getString("CommandWordsBundle", "quit"), modifiers);
     }
 
     /**
-     * "Quit" was entered. Check the rest of the command to see whether we
-     * really quit the game.
+     * Quits the application if this {@link Command} has no modifier words and
+     * the specified {@link zuul.Character} is a {@link Player}.
      *
-     * @return True, if this command quits the game, false otherwise.
+     * @param character  the character that is trying to quit the application
+     * @return true if the {@link Game} has been signalled to quit, false otherwise
      */
     @Override
     public boolean commandLogic(zuul.Character character) {
