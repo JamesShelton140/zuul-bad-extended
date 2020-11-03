@@ -1,4 +1,8 @@
-package zuul;
+package zuul.gameState;
+
+import zuul.GameInterface;
+import zuul.GameText;
+import zuul.gameState.characters.Character;
 
 import java.util.ArrayList;
 import java.util.HashMap;

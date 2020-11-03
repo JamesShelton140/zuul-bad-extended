@@ -1,4 +1,4 @@
-package zuul;
+package zuul.commands;
 
 /**
  * Not used.

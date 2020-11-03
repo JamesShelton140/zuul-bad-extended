@@ -1,4 +1,6 @@
-package zuul;
+package zuul.commands;
+
+import zuul.GameText;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -33,8 +35,8 @@ public class CommandFactory {
             String commandClassName = getCommandClassName(commandWord).orElseThrow();
 
             //If the commandClassName is found then use it to create an instance of that command
-            return Optional.of((zuul.Command) Class
-                    .forName("zuul.commands." + commandClassName.substring(0, 1).toUpperCase() + commandClassName.substring(1).toLowerCase() + "Command")
+            return Optional.of((Command) Class
+                    .forName("zuul.commands.actions." + commandClassName.substring(0, 1).toUpperCase() + commandClassName.substring(1).toLowerCase() + "Command")
                     .getConstructor(new Class<?>[]{ArrayList.class})
                     .newInstance(modifiers));
         } catch (Exception e) {

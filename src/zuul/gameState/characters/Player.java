@@ -2,6 +2,7 @@ package zuul.characters;
 
 import zuul.*;
 import zuul.Character;
+import zuul.command.Command;
 
 /**
  * A user-controlled {@link Character} for the "World of Zuul" application.

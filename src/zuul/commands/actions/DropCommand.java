@@ -1,6 +1,7 @@
-package zuul.commands;
+package zuul.command.actions;
 
 import zuul.*;
+import zuul.command.Command;
 
 import java.util.ArrayList;
 import java.util.Optional;

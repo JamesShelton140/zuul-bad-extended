@@ -1,5 +1,7 @@
 package zuul;
 
+import zuul.command.Command;
+
 import java.util.Objects;
 import java.util.Optional;
 

@@ -1,9 +1,10 @@
-package zuul.commands;
+package zuul.command.actions;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
 import zuul.*;
+import zuul.command.Command;
 
 /**
  * A Take {@link Command} for the "World of Zuul" application.

@@ -1,4 +1,6 @@
-package zuul;
+package zuul.gameState;
+
+import zuul.gameState.characters.Character;
 
 import java.util.ArrayList;
 import java.util.Optional;

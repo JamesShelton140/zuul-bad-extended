@@ -1,6 +1,6 @@
-package zuul.commands;
+package zuul.command.actions;
 
-import zuul.Command;
+import zuul.command.Command;
 import zuul.Game;
 import zuul.GameText;
 import zuul.characters.Player;

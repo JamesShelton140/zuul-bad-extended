@@ -1,4 +1,7 @@
-package zuul;
+package zuul.commands;
+
+import zuul.gameState.characters.Character;
+import zuul.GameInterface;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -65,7 +68,7 @@ public abstract class Command
      * @param character  the character that is acting on this command, not null
      * @return true if the command executed successfully, false otherwise
      */
-    public boolean execute(zuul.Character character) {
+    public boolean execute(Character character) {
         GameInterface.get().update("command start " + COMMAND_WORD); //tell the interface that a command is starting
         boolean result = commandLogic(character); //run the command logic
         GameInterface.get().update("command end " + COMMAND_WORD); //tell the interface that a command has finished
@@ -90,7 +93,7 @@ public abstract class Command
      * @param character  the character that is acting on this command, not null
      * @return true if the command logic completes successfully, false otherwise
      */
-    protected abstract boolean commandLogic(zuul.Character character);
+    protected abstract boolean commandLogic(Character character);
 
     /**
      * Gets the modifier word in the specified index of {@link #MODIFIERS}.

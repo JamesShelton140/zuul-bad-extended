@@ -1,4 +1,4 @@
-package zuul;
+package zuul.gameState;
 
 import java.util.Objects;
 

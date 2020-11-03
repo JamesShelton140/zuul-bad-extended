@@ -1,5 +1,9 @@
 package zuul;
 
+import zuul.gameState.characters.Character;
+import zuul.gameState.maps.Map;
+import zuul.gameState.maps.ZuulMap;
+
 /**
  * The World of Zuul game engine. This stores the state of the game and handles overall flow of game logic.
  * <p>

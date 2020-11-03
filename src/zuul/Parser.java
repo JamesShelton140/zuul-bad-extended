@@ -1,5 +1,7 @@
 package zuul;
 
+import zuul.commands.Command;
+import zuul.commands.CommandFactory;
 import zuul.io.Out;
 
 import java.util.ArrayList;
@@ -37,7 +39,7 @@ public class Parser
      * <p>
      * The returned Command may not contain all required modifiers to successfully {@link Command#execute execute}.
      *
-     * @param caller  the name of the {@link zuul.characters.Player} that called this method, not null
+     * @param caller  the name of the {@link zuul.gameState.characters.Player} that called this method, not null
      * @return the next Command instantiated from user input, not null
      */
     public Command getCommand(String caller)
