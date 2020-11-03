@@ -3,33 +3,30 @@ package zuul.characters;
 import zuul.*;
 import zuul.Character;
 
+/**
+ * A user-controlled {@link Character} for the "World of Zuul" application.
+ * <p>
+ *
+ * @author Timothy Shelton
+ */
 public class Player extends Character {
     /**
-     * Constructor
-     * @param name
-     * @param startingRoom
+     * Constructor initialises the player as a {@link Character} with specified name and starting {@link Room}.
+     *
+     * @param name  the name of this Player
+     * @param startingRoom  the room that this player should start in
      */
     public Player(String name, Room startingRoom) {
         super(name, startingRoom);
     }
 
     /**
-     * Constructor
-     * @param name
-     */
-    public Player(String name) {
-        this(name, null);
-    }
-
-    /**
-     * The Player performs an action by getting a command from the Game's Parser and processing it.
-     * Method does not return until a command is successfully processed.
+     * Attempts to generate and process a {@link Command}.
+     *
+     * Does not return until a command has been successfully processed.
      */
     @Override
     public void act() {
-        //For multiplayer
-        //Look around the current room to remind us where we are
-        //getCurrentRoom().printInfo();
 
         boolean commandProcessed = false;
         do {
