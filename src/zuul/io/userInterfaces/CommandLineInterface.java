@@ -9,6 +9,8 @@ import java.util.Scanner;
  * A command line {@link UserInterface} for the "World of Zuul" application.
  * <p>
  * This user interface uses the standard terminal command line to display messages and get input from the user.
+ *
+ * @author Timothy Shelton
  */
 public class CommandLineInterface implements UserInterface {
 
