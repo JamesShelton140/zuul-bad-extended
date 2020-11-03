@@ -1,8 +1,8 @@
-package zuul.command.actions;
+package zuul.commands.actions;
 
 import zuul.*;
-import zuul.Character;
-import zuul.command.Command;
+import zuul.gameState.characters.Character;
+import zuul.commands.Command;
 
 import java.util.ArrayList;
 import java.util.Comparator;

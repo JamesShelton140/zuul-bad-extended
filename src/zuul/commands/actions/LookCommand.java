@@ -1,14 +1,15 @@
-package zuul.command.actions;
+package zuul.commands.actions;
 
 import zuul.*;
-import zuul.Character;
-import zuul.command.Command;
+import zuul.gameState.characters.Character;
+import zuul.commands.Command;
+import zuul.gameState.Room;
 
 import java.util.ArrayList;
 
 /**
  * A Look {@link Command} for the "World of Zuul" application.
- * This command prints the state of the current {@link Room} of a {@link zuul.Character}.
+ * This command prints the state of the current {@link Room} of a {@link Character}.
  * <p>
  * This command takes no modifier words.
  *
@@ -44,7 +45,7 @@ public class LookCommand extends Command {
      * @return true always
      */
     @Override
-    public boolean commandLogic(zuul.Character character) {
+    public boolean commandLogic(Character character) {
         character.getCurrentRoom().printInfo(); //look around the room
         character.act(); //allow character to perform another action
         return true;

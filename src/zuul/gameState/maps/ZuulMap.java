@@ -1,6 +1,10 @@
-package zuul;
+package zuul.gameState.maps;
 
-import zuul.characters.Player;
+import zuul.GameText;
+import zuul.gameState.Item;
+import zuul.gameState.Room;
+import zuul.gameState.characters.Character;
+import zuul.gameState.characters.Player;
 
 import java.util.Arrays;
 

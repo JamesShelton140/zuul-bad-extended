@@ -1,4 +1,9 @@
-package zuul;
+package zuul.gameState.maps;
+
+import zuul.Game;
+import zuul.gameState.Item;
+import zuul.gameState.Room;
+import zuul.gameState.characters.Character;
 
 import java.util.HashMap;
 import java.util.Optional;

@@ -1,9 +1,10 @@
-package zuul.command.actions;
+package zuul.commands.actions;
 
-import zuul.command.Command;
+import zuul.commands.Command;
 import zuul.Game;
 import zuul.GameText;
-import zuul.characters.Player;
+import zuul.gameState.characters.Character;
+import zuul.gameState.characters.Player;
 
 import java.util.ArrayList;
 
@@ -37,13 +38,13 @@ public class QuitCommand extends Command {
 
     /**
      * Quits the application if this {@link Command} has no modifier words and
-     * the specified {@link zuul.Character} is a {@link Player}.
+     * the specified {@link Character} is a {@link Player}.
      *
      * @param character  the character that is trying to quit the application
      * @return true if the {@link Game} has been signalled to quit, false otherwise
      */
     @Override
-    public boolean commandLogic(zuul.Character character) {
+    public boolean commandLogic(Character character) {
         if(!(character instanceof Player)) {
             //Only players can quit the game
             updateErr("notPlayer");

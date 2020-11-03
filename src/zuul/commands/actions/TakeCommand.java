@@ -1,14 +1,18 @@
-package zuul.command.actions;
+package zuul.commands.actions;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
 import zuul.*;
-import zuul.command.Command;
+import zuul.commands.Command;
+import zuul.gameState.characters.Character;
+import zuul.gameState.Inventory;
+import zuul.gameState.Item;
+import zuul.gameState.Room;
 
 /**
  * A Take {@link Command} for the "World of Zuul" application.
- * This command takes an {@link Item} from a {@link zuul.Room} {@link Inventory}.
+ * This command takes an {@link Item} from a {@link Room} {@link Inventory}.
  * <p>
  * This command takes a single modifier word:
  * <li>
@@ -30,13 +34,13 @@ public class TakeCommand extends Command {
 
     /**
      * Tries to take the item whose name is specified as the first modifier word of this {@link Command}
-     * from the {@link Inventory} of the current {@link Room} of the specified {@link zuul.Character}.
+     * from the {@link Inventory} of the current {@link Room} of the specified {@link Character}.
      *
      * @param character the Character that is trying to take an item
      * @return true if item is taken successfully, false otherwise
      */
     @Override
-    public boolean commandLogic(zuul.Character character) {
+    public boolean commandLogic(Character character) {
 
         Optional<String> opItemName = getModifier(0);
 

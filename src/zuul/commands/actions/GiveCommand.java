@@ -1,15 +1,17 @@
-package zuul.command.actions;
+package zuul.commands.actions;
 
 import zuul.*;
-import zuul.Character;
-import zuul.command.Command;
+import zuul.gameState.characters.Character;
+import zuul.commands.Command;
+import zuul.gameState.Inventory;
+import zuul.gameState.Item;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
 /**
  * A Give {@link Command} for the "World of Zuul" application.
- * This command gives an {@link Item} from a {@link zuul.Character} {@link Inventory} to another Character Inventory.
+ * This command gives an {@link Item} from a {@link Character} {@link Inventory} to another Character Inventory.
  * <p>
  * This command takes two modifier words:
  * <ul>
@@ -36,14 +38,14 @@ public class GiveCommand extends Command {
 
     /**
      * Tries to give the item whose name is specified as the first modifier word of this {@link Command},
-     * from the specified {@link zuul.Character},
+     * from the specified {@link Character},
      * to the Character specified as the second modifier word of this Command.
      *
      * @param character the Character that is trying to give an item
      * @return true if item is given successfully, false otherwise
      */
     @Override
-    public boolean commandLogic(zuul.Character character) {
+    public boolean commandLogic(Character character) {
 
         Optional<String> opItemName = getModifier(0);
 

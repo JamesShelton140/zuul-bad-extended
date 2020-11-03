@@ -1,14 +1,17 @@
-package zuul.command.actions;
+package zuul.commands.actions;
 
 import zuul.*;
-import zuul.command.Command;
+import zuul.commands.Command;
+import zuul.gameState.characters.Character;
+import zuul.gameState.Inventory;
+import zuul.gameState.Item;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
 /**
  * A Drop {@link Command} for the "World of Zuul" application.
- * This command drops an {@link Item} from a {@link zuul.Character} {@link Inventory}.
+ * This command drops an {@link Item} from a {@link Character} {@link Inventory}.
  * <p>
  * This command takes a single modifier word:
  * <li>
@@ -30,13 +33,13 @@ public class DropCommand extends Command {
 
     /**
      * Tries to drop the item whose name is specified as the first modifier word of this {@link Command}
-     * from the specified {@link zuul.Character}.
+     * from the specified {@link Character}.
      *
      * @param character the Character that is trying to drop an item
      * @return true if item is dropped successfully, false otherwise
      */
     @Override
-    public boolean commandLogic(zuul.Character character){
+    public boolean commandLogic(Character character){
 
         Optional<String> opItemName = getModifier(0);
 

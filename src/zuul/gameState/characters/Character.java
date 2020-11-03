@@ -1,6 +1,10 @@
-package zuul;
+package zuul.gameState.characters;
 
-import zuul.command.Command;
+import zuul.commands.Command;
+import zuul.gameState.Inventory;
+import zuul.gameState.Item;
+import zuul.gameState.maps.Map;
+import zuul.gameState.Room;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -8,8 +12,8 @@ import java.util.Optional;
 /**
  * A Character in the "World of Zuul" application.
  * This represents a generic character in the game including state and functionality common to all types of character.
- * Examples of concrete subclasses of this are {@link zuul.characters.Player} (a user-controlled character) and
- * {@link zuul.characters.NPC} (an AI-controlled character).
+ * Examples of concrete subclasses of this are {@link zuul.gameState.characters.Player} (a user-controlled character) and
+ * {@link zuul.gameState.characters.NPC} (an AI-controlled character).
  * <p>
  * Characters must exist in a {@link Room} and are part of the {@link Map} state.
  *

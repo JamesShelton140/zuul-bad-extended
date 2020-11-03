@@ -1,7 +1,6 @@
-package zuul.characters;
+package zuul.gameState.characters;
 
-import zuul.Character;
-import zuul.Room;
+import zuul.gameState.Room;
 
 /**
  * An AI-controlled {@link Character} for the "World of Zuul" application.

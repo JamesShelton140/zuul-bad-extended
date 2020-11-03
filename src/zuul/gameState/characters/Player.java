@@ -1,8 +1,8 @@
-package zuul.characters;
+package zuul.gameState.characters;
 
 import zuul.*;
-import zuul.Character;
-import zuul.command.Command;
+import zuul.commands.Command;
+import zuul.gameState.Room;
 
 /**
  * A user-controlled {@link Character} for the "World of Zuul" application.
