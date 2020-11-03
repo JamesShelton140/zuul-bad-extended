@@ -5,41 +5,40 @@ import zuul.io.Out;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
- * This class is part of the "World of Zuul" application. 
- * "World of Zuul" is a very simple, text based adventure game.  
- * 
- * This parser reads user input and tries to interpret it as an "Adventure"
- * command. Every time it is called it reads a line from the terminal and
- * tries to interpret the line as a three word command. It returns the command
- * as an object of class zuul.Command.
+ * A parser for the "World of Zuul" application.
+ * This parser requests user input and tries to interpret it as a {@link Command}.
  *
- * The parser has a set of known command words. It checks user input against
- * the known zuul.commands, and if the input is not one of the known zuul.commands, it
- * returns a command object that is marked as an unknown command.
- * 
  * @author  Michael Kolling and David J. Barnes
- * @version 2006.03.30
+ * @author Timothy Shelton
  */
 public class Parser 
 {
-    private CommandWords commands;  // holds all valid command words
-    CommandFactory commandFactory;  // creates commands from input
+    /**
+     * Factory to handle {@link Command} instantiation.
+     */
+    CommandFactory commandFactory;
 
     /**
-     * Create a parser to read from the terminal window.
+     * Constructor
+     *
+     * Creates a parser to interpret user input into a {@link Command}.
      */
-    public Parser() 
-    {
+    public Parser() {
         commandFactory = new CommandFactory();
-        commands = new CommandWords();
     }
 
     /**
      * Reads input from user and tries to parse it as a valid command.
-     * Only returns if a valid zuul.commands is parsed. Else an error message is printed and getCommand() is called recursively.
-     * @return The next valid command from the user.
+     * Only returns if a {@link Command} is successfully instantiated.
+     * Prints an error message and calls this method recursively otherwise.
+     * <p>
+     * The returned Command may not contain all required modifiers to successfully {@link Command#execute execute}.
+     *
+     * @param caller  the name of the {@link zuul.characters.Player} that called this method, not null
+     * @return the next Command instantiated from user input, not null
      */
     public Command getCommand(String caller)
     {
@@ -68,8 +67,10 @@ public class Parser
         Optional<Command> command = commandFactory.getCommand(commandWord, modifiers);
 
         if (command.isPresent()) {
+            //If a command was successfully instantiated then return it
             return command.get();
         } else {
+            //Could not instantiated a command from user input so try again
             GameInterface.get().update("parser error"); //update interface
             Out.println(GameText.getString("unrecognisedCommandError")); //error message
             return getCommand(caller);
@@ -77,17 +78,20 @@ public class Parser
     }
 
     /**
-     * getCommand to retrieve command without explicit calling character.
-     * @return
+     * Gets a {@link Command} without explicit calling character.
+     *
+     * @return the next Command instantiated from user input, not null
      */
     public Command getCommand() {
         return getCommand("");
     }
 
     /**
-     * @return The CommandsWords object that holds all valid zuul.commands for this parser.
+     * Gets the set of valid command words
+     *
+     * @return the set of all command words, not null
      */
-    public CommandWords getCommandWords() {
-        return commands;
+    public Set<String> getCommandWords() {
+        return GameText.getCommandWords();
     }
 }
