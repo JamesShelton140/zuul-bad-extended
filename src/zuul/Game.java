@@ -1,37 +1,16 @@
 package zuul;
 
-
-import java.util.Collection;
-
 /**
- * The game engine. This represents the state of the game and handles overall flow of game logic.
+ * The World of Zuul game engine. This stores the state of the game and handles overall flow of game logic.
  * <p>
  * The {@link zuul.io.userInterfaces.UserInterface UserInterface} should call {@code Game.getInstance().play()}
- * to start the game logic.
+ * to create the game and start the game logic.
  * <p>
+ * This class holds a static instance of itself that stores the {@link Map} (game state) and {@link Parser}.
  *
- * <p>
  * @author Michael Kolling and David J. Barnes
  * @author Timothy Shelton
- * @version 2006.03.30
  */
-///**
-// * This class is the main class of the "World of Zuul" application. "World of
-// * Zuul" is a very simple, text based adventure game. Users can walk around some
-// * scenery. That's all. It should really be extended to make it more
-// * interesting!
-// * <p>
-// * To play this game, create an instance of this class and call the "play"
-// * method.
-// * <p>
-// * This main class creates and initialises all the others: it creates all rooms,
-// * creates the parser and starts the game. It also evaluates and executes the
-// * zuul.commands that the parser returns.
-// * <p>
-// * @author Michael Kolling and David J. Barnes
-// * @author Timothy Shelton
-// * @version 2006.03.30
-// */
 public class Game {
 
     /**
@@ -47,14 +26,17 @@ public class Game {
     /**
      * The Parser to be used for this Game.
      */
-    private Parser parser;
+    private final Parser parser;
     /**
      * Marker for if this Game should finish.
      */
     private Boolean finished = false;
 
     /**
-     * Create the game and initialise its internal map.
+     * Creates the game and initialise its {@link Map} and {@link Parser}.
+     * This constructor is declared {@code private} to limit instantiation to a single {@code static} instance.
+     *
+     * To get the static instance call {@link Game#getInstance()}.
      */
     private Game() {
         map = new ZuulMap();
@@ -62,7 +44,8 @@ public class Game {
     }
 
     /**
-     * Gets the static
+     * Gets the static instance of this class.
+     * An instance is created if it does not already exist.
      *
      * @return the static instance of Game, not null
      */
@@ -82,6 +65,7 @@ public class Game {
      * Each loop every character in the {@link #map} is told to {@link Character#act()}.
      */
     public void play() {
+        //start the game by printing the welcome message provided by the map
         map.printWelcome();
 
         // Enter the main command loop.
